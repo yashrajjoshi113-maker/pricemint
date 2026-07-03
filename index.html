@@ -58,6 +58,9 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: #FAF8F5; }
@@ -405,6 +408,19 @@ function genDeals() {
 const DEALS = genDeals();
 
 /* ---------------------------------------------------------------------
+   SUPABASE CONFIG
+   Paste your project's URL + anon key below (Supabase Dashboard ->
+   Project Settings -> API). Until you do, the app automatically
+   falls back to the old localStorage-only mode, so nothing breaks.
+--------------------------------------------------------------------- */
+const SUPABASE_CONFIG = {
+  url: 'YOUR_SUPABASE_URL',       // e.g. 'https://abcxyz.supabase.co'
+  anonKey: 'YOUR_SUPABASE_ANON_KEY',
+};
+const SUPABASE_ENABLED = !SUPABASE_CONFIG.url.includes('YOUR_SUPABASE_URL') && !SUPABASE_CONFIG.anonKey.includes('YOUR_SUPABASE_ANON_KEY');
+const sb = SUPABASE_ENABLED ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey) : null;
+
+/* ---------------------------------------------------------------------
    STATE
 --------------------------------------------------------------------- */
 const LS = {
@@ -457,14 +473,49 @@ function toast(msg, kind='default') {
   setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(), 320); }, 2600);
 }
 function isWishlisted(id) { return STATE.wishlist.includes(id); }
-function toggleWishlist(id) {
+async function toggleWishlist(id) {
   if (!STATE.user) { openLoginModal('Sign in to save items to your wishlist.'); return; }
   const list = new Set(STATE.wishlist);
-  if (list.has(id)) { list.delete(id); toast('Removed from wishlist'); } else { list.add(id); toast('Added to wishlist', 'success'); }
+  const adding = !list.has(id);
+
+  if (SUPABASE_ENABLED) {
+    try {
+      if (adding) {
+        const { error } = await sb.from('wishlists').insert({ user_id: STATE.user.id, product_id: id });
+        if (error && error.code !== '23505') throw error; // ignore duplicate-key races
+      } else {
+        const { error } = await sb.from('wishlists').delete().eq('user_id', STATE.user.id).eq('product_id', id);
+        if (error) throw error;
+      }
+    } catch (e) {
+      console.error('Supabase wishlist error:', e);
+      toast('Could not update wishlist — check your connection.', 'error');
+      return;
+    }
+  }
+
+  if (adding) { list.add(id); toast('Added to wishlist', 'success'); }
+  else { list.delete(id); toast('Removed from wishlist'); }
   persist('wishlist', [...list]);
   renderHeaderBits();
   if (location.hash.startsWith('#/wishlist')) renderRoute();
   document.querySelectorAll(`[data-wish-btn="${id}"]`).forEach(b => b.classList.toggle('text-mint', list.has(id)));
+}
+
+async function loadWishlistFromSupabase() {
+  if (!SUPABASE_ENABLED || !STATE.user) return;
+  const { data, error } = await sb.from('wishlists').select('product_id').eq('user_id', STATE.user.id);
+  if (error) { console.error('Supabase wishlist load error:', error); return; }
+  persist('wishlist', data.map(r => r.product_id));
+}
+
+async function loadAlertsFromSupabase() {
+  if (!SUPABASE_ENABLED || !STATE.user) return;
+  const { data, error } = await sb.from('price_alerts').select('product_id').eq('user_id', STATE.user.id);
+  if (error) { console.error('Supabase alerts load error:', error); return; }
+  const alerts = {};
+  data.forEach(r => { alerts[r.product_id] = true; });
+  persist('alerts', alerts);
 }
 function iconFor(name) {
   const icons = {
@@ -1026,14 +1077,10 @@ function mountProductPage(p) {
   });
   // alert toggle
   const alertBtn = document.getElementById('alert-toggle');
-  alertBtn?.addEventListener('click', ()=>{
-    if (!STATE.user) { openLoginModal('Sign in to set price drop alerts.'); return; }
-    const alerts = { ...STATE.alerts };
-    alerts[p.id] = !alerts[p.id];
-    if (!alerts[p.id]) delete alerts[p.id];
-    persist('alerts', alerts);
-    alertBtn.classList.toggle('text-mint'); alertBtn.classList.toggle('border-mint');
-    toast(alerts[p.id] ? 'Price alert enabled' : 'Price alert removed');
+  alertBtn?.addEventListener('click', async ()=>{
+    await toggleAlert(p.id);
+    alertBtn.classList.toggle('text-mint', !!STATE.alerts[p.id]);
+    alertBtn.classList.toggle('border-mint', !!STATE.alerts[p.id]);
   });
   // chart
   let range = '90D';
@@ -1181,31 +1228,60 @@ function openLoginModal(message) {
   };
   document.getElementById('auth-tab-login').onclick = ()=>setMode('login');
   document.getElementById('auth-tab-signup').onclick = ()=>setMode('signup');
-  document.getElementById('auth-form').onsubmit = (e) => {
+  document.getElementById('auth-form').onsubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
     const email = fd.get('email').trim().toLowerCase();
     const password = fd.get('password');
     const name = fd.get('name');
-    if (mode === 'signup') {
-      if (STATE.users[email]) { toast('An account with this email already exists.', 'error'); return; }
-      const users = { ...STATE.users, [email]: { name: name || email.split('@')[0], password } };
-      persist('users', users);
-      persist('user', { email, name: users[email].name });
-      toast('Account created — welcome to PriceMint!', 'success');
+    const submitBtn = document.getElementById('auth-submit-btn');
+    submitBtn.disabled = true; submitBtn.textContent = 'Please wait…';
+
+    if (SUPABASE_ENABLED) {
+      try {
+        if (mode === 'signup') {
+          const { data, error } = await sb.auth.signUp({ email, password, options: { data: { name: name || email.split('@')[0] } } });
+          if (error) throw error;
+          if (data.user && !data.session) {
+            toast('Account created! Check your email to confirm, then log in.', 'success');
+            setMode('login'); submitBtn.disabled = false; submitBtn.textContent = 'Log In';
+            return;
+          }
+          await onSupabaseAuthed(data.user, name || email.split('@')[0]);
+          toast('Account created — welcome to PriceMint!', 'success');
+        } else {
+          const { data, error } = await sb.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          await onSupabaseAuthed(data.user);
+          toast(`Welcome back!`, 'success');
+        }
+      } catch (err) {
+        console.error('Supabase auth error:', err);
+        toast(err.message || 'Authentication failed.', 'error');
+        submitBtn.disabled = false; submitBtn.textContent = mode==='signup' ? 'Create Account' : 'Log In';
+        return;
+      }
     } else {
-      const rec = STATE.users[email];
-      if (!rec || rec.password !== password) {
-        // Auto-provision demo account if not found, so the flow never dead-ends
-        if (!rec) {
-          const users = { ...STATE.users, [email]: { name: email.split('@')[0], password } };
-          persist('users', users);
-          persist('user', { email, name: users[email].name });
-          toast('New account created and logged in.', 'success');
-        } else { toast('Incorrect password.', 'error'); return; }
+      // Local fallback mode (no Supabase configured yet)
+      if (mode === 'signup') {
+        if (STATE.users[email]) { toast('An account with this email already exists.', 'error'); submitBtn.disabled=false; submitBtn.textContent='Create Account'; return; }
+        const users = { ...STATE.users, [email]: { name: name || email.split('@')[0], password } };
+        persist('users', users);
+        persist('user', { email, name: users[email].name });
+        toast('Account created — welcome to PriceMint! (local mode)', 'success');
       } else {
-        persist('user', { email, name: rec.name });
-        toast(`Welcome back, ${rec.name}!`, 'success');
+        const rec = STATE.users[email];
+        if (!rec || rec.password !== password) {
+          if (!rec) {
+            const users = { ...STATE.users, [email]: { name: email.split('@')[0], password } };
+            persist('users', users);
+            persist('user', { email, name: users[email].name });
+            toast('New account created and logged in. (local mode)', 'success');
+          } else { toast('Incorrect password.', 'error'); submitBtn.disabled=false; submitBtn.textContent='Log In'; return; }
+        } else {
+          persist('user', { email, name: rec.name });
+          toast(`Welcome back, ${rec.name}!`, 'success');
+        }
       }
     }
     closeModal();
@@ -1213,11 +1289,45 @@ function openLoginModal(message) {
     if (location.hash === '#/login') navigate('#/');
   };
 }
-function logout() {
+
+// Called after a successful Supabase sign-up/sign-in to sync app STATE
+async function onSupabaseAuthed(supaUser, fallbackName) {
+  let name = fallbackName;
+  try {
+    const { data } = await sb.from('profiles').select('name').eq('id', supaUser.id).single();
+    if (data?.name) name = data.name;
+  } catch (e) { /* profile row may still be creating via trigger — fallback name is fine */ }
+  persist('user', { id: supaUser.id, email: supaUser.email, name: name || supaUser.email.split('@')[0] });
+  await loadWishlistFromSupabase();
+  await loadAlertsFromSupabase();
+}
+
+async function logout() {
+  if (SUPABASE_ENABLED) {
+    try { await sb.auth.signOut(); } catch (e) { console.error('Supabase sign-out error:', e); }
+  }
   persist('user', null);
+  persist('wishlist', []);
+  persist('alerts', {});
   toast('Logged out');
   renderHeaderBits();
   navigate('#/');
+}
+
+// On page load, restore an existing Supabase session (so refresh doesn't log you out)
+async function restoreSupabaseSession() {
+  if (!SUPABASE_ENABLED) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session?.user) {
+      await onSupabaseAuthed(session.user);
+      renderHeaderBits();
+      if (location.hash.startsWith('#/wishlist')) renderRoute();
+    }
+    sb.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') { persist('user', null); renderHeaderBits(); }
+    });
+  } catch (e) { console.error('Supabase session restore error:', e); }
 }
 
 /* ---------------------------------------------------------------------
@@ -1252,11 +1362,31 @@ function viewWishlist() {
       </div>`}
   </div>`;
 }
-function toggleAlert(id) {
+async function toggleAlert(id) {
+  if (!STATE.user) { openLoginModal('Sign in to set price drop alerts.'); return; }
   const alerts = { ...STATE.alerts };
-  if (alerts[id]) delete alerts[id]; else alerts[id] = true;
+  const enabling = !alerts[id];
+
+  if (SUPABASE_ENABLED) {
+    try {
+      if (enabling) {
+        const { error } = await sb.from('price_alerts').insert({ user_id: STATE.user.id, product_id: id });
+        if (error && error.code !== '23505') throw error;
+      } else {
+        const { error } = await sb.from('price_alerts').delete().eq('user_id', STATE.user.id).eq('product_id', id);
+        if (error) throw error;
+      }
+    } catch (e) {
+      console.error('Supabase alert error:', e);
+      toast('Could not update alert — check your connection.', 'error');
+      return;
+    }
+  }
+
+  if (enabling) alerts[id] = true; else delete alerts[id];
   persist('alerts', alerts);
   toast(alerts[id] ? 'Price alert enabled' : 'Price alert removed');
+  if (location.hash.startsWith('#/wishlist')) renderRoute();
 }
 
 /* ---------------------------------------------------------------------
@@ -1580,6 +1710,10 @@ applyTheme();
 
 renderRoute();
 renderHeaderBits();
+restoreSupabaseSession();
+if (!SUPABASE_ENABLED) {
+  console.info('%cPriceMint: running in local mode.', 'color:#1DB954;font-weight:bold', '\nPaste your Supabase URL + anon key into SUPABASE_CONFIG (top of the script) to enable real accounts, wishlist and alerts.');
+}
 
 </script>
 </body>
