@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Products | PriceMint</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-charcoal: #111827;
+            --color-savings: #10B981;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Outfit', system-ui, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3; border-top: 4px solid #111827;
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
+                    <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <span class="text-white font-display font-bold text-base">P</span>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">Price<span class="text-green-500">Mint</span></span>
+                </a>
+                
+                <div class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+                    <input type="text" id="page-search" placeholder="Search for products, brands..." class="w-full pl-11 pr-4 py-2.5 bg-gray-100 rounded-xl border-transparent focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all text-sm">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+
+                <nav class="flex items-center gap-6">
+                    <a href="deals.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:block">Deals</a>
+                    <a href="login.html" class="text-sm font-semibold bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-colors">Sign In</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Filters -->
+        <aside class="w-full md:w-64 shrink-0">
+            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm sticky top-24">
+                <h3 class="font-display font-bold text-gray-900 mb-4">Filters</h3>
+                
+                <div class="mb-6">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Categories</h4>
+                    <div class="space-y-2" id="filter-cats">
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900"><input type="radio" name="cat" value="" checked class="accent-gray-900"> All Categories</label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900"><input type="radio" name="cat" value="smartphones" class="accent-gray-900"> Smartphones</label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900"><input type="radio" name="cat" value="laptops" class="accent-gray-900"> Laptops</label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900"><input type="radio" name="cat" value="audio" class="accent-gray-900"> Audio</label>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Sort By</h4>
+                    <select id="sort-select" class="w-full p-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700 outline-none focus:border-gray-900">
+                        <option value="relevance">Relevance</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="discount">Highest Discount</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Results Grid -->
+        <div class="flex-1">
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h1 class="text-2xl font-display font-bold text-gray-900" id="results-title">Explore Products</h1>
+                    <p class="text-sm text-gray-500 mt-1" id="results-count">Loading...</p>
+                </div>
+            </div>
+
+            <div id="loading" class="flex flex-col items-center justify-center py-20">
+                <div class="loader mb-4"></div>
+                <p class="text-sm text-gray-500">Searching...</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="search-results-grid">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div id="no-results" class="hidden py-20 text-center">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">🔍</div>
+                <h3 class="text-lg font-bold text-gray-900">No products found</h3>
+                <p class="text-gray-500 text-sm mt-1">Try adjusting your search or filters.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q') || '';
+            const cat = urlParams.get('category') || '';
+            
+            const searchInput = document.getElementById('page-search');
+            if(query) searchInput.value = query;
+
+            const grid = document.getElementById('search-results-grid');
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+            let currentData = [];
+
+            // Bind the renderCard function from app.js (we'll just duplicate its logic slightly for standalone page or inject it)
+            // Since app.js might not export renderCard globally, let's define a simple one here for the grid
+            const renderGridCard = (p) => {
+                const thumb = p.image || p.thumbnail || `https://via.placeholder.com/400x400.png?text=${encodeURIComponent(p.title)}`;
+                const plat = p.cheapestPlatform || 'Store';
+                return `
+                <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden group hover:shadow-xl transition-all duration-300 relative flex flex-col h-full">
+                    <a href="product.html?id=${p.id}" class="aspect-square bg-white p-4 flex items-center justify-center relative border-b border-gray-50">
+                        <img src="${thumb}" alt="${p.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-4 flex flex-col flex-1">
+                        <h3 class="text-sm font-bold text-gray-900 line-clamp-2 mb-2 group-hover:text-blue-600 transition-colors"><a href="product.html?id=${p.id}">${p.title}</a></h3>
+                        <div class="mt-auto pt-2 flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-bold text-gray-900 block">${window.formatPrice ? window.formatPrice(p.lowestPrice) : '₹'+p.lowestPrice}</span>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase bg-gray-100 px-1.5 py-0.5 rounded mt-1 inline-block">${plat}</span>
+                            </div>
+                            ${p.discount > 0 ? `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold border border-green-200">-${p.discount}%</span>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+            };
+
+            const renderData = () => {
+                grid.innerHTML = currentData.map(renderGridCard).join('');
+                document.getElementById('results-count').textContent = `Showing ${currentData.length} results`;
+                if(currentData.length === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            };
+
+            const fetchData = async () => {
+                loading.classList.remove('hidden');
+                grid.innerHTML = '';
+                noResults.classList.add('hidden');
+
+                let url = 'http://localhost:3000/api/products?';
+                if(query) url += `q=${encodeURIComponent(query)}`;
+                else if(cat) url += `category=${encodeURIComponent(cat)}`;
+
+                if(query) document.getElementById('results-title').textContent = `Results for "${query}"`;
+                else if(cat) document.getElementById('results-title').textContent = `${cat} Products`;
+
+                try {
+                    const res = await fetch(url);
+                    if(res.ok) {
+                        currentData = await res.json();
+                        renderData();
+                    }
+                } catch(e) {
+                    console.error(e);
+                    document.getElementById('results-count').textContent = 'Error loading results.';
+                } finally {
+                    loading.classList.add('hidden');
+                }
+            };
+
+            fetchData();
+
+            // Setup sort
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                const sort = e.target.value;
+                if(sort === 'price-low') currentData.sort((a,b) => a.lowestPrice - b.lowestPrice);
+                else if(sort === 'price-high') currentData.sort((a,b) => b.lowestPrice - a.lowestPrice);
+                else if(sort === 'discount') currentData.sort((a,b) => (b.discount||0) - (a.discount||0));
+                renderData();
+            });
+
+            // Setup search input enter
+            searchInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter' && e.target.value.trim()) {
+                    window.location.href = `search.html?q=${encodeURIComponent(e.target.value.trim())}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

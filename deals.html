@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Top Deals | PriceMint</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-charcoal: #111827;
+            --color-savings: #10B981;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Outfit', system-ui, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .deals-bg { background: linear-gradient(135deg, #FF6B35 0%, #F53844 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
+                    <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <span class="text-white font-display font-bold text-base">P</span>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">Price<span class="text-green-500">Mint</span></span>
+                </a>
+                
+                <nav class="flex items-center gap-6 ml-auto">
+                    <a href="search.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:block">Explore</a>
+                    <a href="login.html" class="text-sm font-semibold bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-colors">Sign In</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Deals Hero -->
+    <section class="deals-bg py-16 px-4 text-center text-white">
+        <div class="max-w-3xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-white/20 text-xs font-bold uppercase tracking-widest mb-4 border border-white/30 backdrop-blur">Updated Hourly</span>
+            <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">Biggest Price Drops 🔥</h1>
+            <p class="text-lg text-white/80">We scan millions of products across Amazon, Flipkart & more to find the steepest discounts so you don't have to.</p>
+        </div>
+    </section>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+        <div id="loading" class="flex flex-col items-center justify-center py-20">
+            <div class="w-10 h-10 border-4 border-gray-200 border-t-red-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-sm text-gray-500 font-bold uppercase tracking-wider">Hunting Deals...</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="deals-grid">
+            <!-- Populated by JS -->
+        </div>
+
+    </main>
+
+    <script>
+        const formatPrice = (price) => '₹' + price.toLocaleString('en-IN');
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('deals-grid');
+            const loading = document.getElementById('loading');
+
+            const renderDealCard = (p) => {
+                const thumb = p.image || p.thumbnail || `https://via.placeholder.com/400x400.png?text=${encodeURIComponent(p.title)}`;
+                const plat = p.cheapestPlatform || 'Store';
+                return `
+                <div class="bg-white rounded-2xl border border-red-100 overflow-hidden group hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 relative flex flex-col h-full shadow-md">
+                    <!-- Huge Discount Badge -->
+                    <div class="absolute top-0 left-0 bg-red-500 text-white font-black text-sm px-3 py-1.5 rounded-br-xl z-10 shadow-sm">
+                        -${p.discount}% OFF
+                    </div>
+                    <a href="product.html?id=${p.id}" class="aspect-[4/3] bg-white p-6 flex items-center justify-center relative border-b border-gray-50">
+                        <img src="${thumb}" alt="${p.title}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
+                    </a>
+                    <div class="p-5 flex flex-col flex-1 bg-gradient-to-b from-white to-red-50/30">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">${plat}</p>
+                        <h3 class="text-sm font-bold text-gray-900 line-clamp-2 mb-3 group-hover:text-red-600 transition-colors"><a href="product.html?id=${p.id}">${p.title}</a></h3>
+                        <div class="mt-auto">
+                            <span class="text-sm text-gray-400 line-through block mb-0.5">${formatPrice(p.originalPrice)}</span>
+                            <span class="text-2xl font-display font-black text-red-600 block mb-3">${formatPrice(p.lowestPrice)}</span>
+                            <a href="${p.cheapestUrl || '#'}" target="_blank" class="w-full block text-center bg-gray-900 text-white font-bold py-2.5 rounded-lg hover:bg-gray-800 transition-colors shadow-md">Get Deal</a>
+                        </div>
+                    </div>
+                </div>`;
+            };
+
+            try {
+                const res = await fetch('http://localhost:3000/api/deals');
+                if (res.ok) {
+                    const data = await res.json();
+                    // Filter to only show actual deals > 5%
+                    const actualDeals = data.filter(d => d.discount > 5);
+                    grid.innerHTML = actualDeals.map(renderDealCard).join('');
+                }
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p class="text-center col-span-full text-red-500">Failed to fetch deals.</p>';
+            } finally {
+                loading.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
