@@ -255,26 +255,50 @@ const SELLERS = [
   { id:'myntra',   name:'Myntra',           color:'#FF3F6C', rating:4.2, delivery:'2-3 days', logo:'M' },
 ];
 
-const CATEGORIES = [
-  { id:'mobiles',     name:'Mobiles',        icon:'phone' },
-  { id:'laptops',     name:'Laptops',        icon:'laptop' },
-  { id:'audio',       name:'Audio',          icon:'headphones' },
-  { id:'tv',          name:'TVs',            icon:'tv' },
-  { id:'appliances',  name:'Appliances',     icon:'fridge' },
-  { id:'wearables',   name:'Wearables',      icon:'watch' },
-  { id:'cameras',     name:'Cameras',        icon:'camera' },
-  { id:'gaming',      name:'Gaming',         icon:'gamepad' },
-  { id:'fashion',     name:'Fashion',        icon:'shirt' },
-  { id:'footwear',    name:'Footwear',       icon:'shoe' },
-  { id:'beauty',      name:'Beauty',         icon:'sparkle' },
-  { id:'home',        name:'Home & Kitchen', icon:'home' },
-  { id:'furniture',   name:'Furniture',      icon:'sofa' },
-  { id:'books',       name:'Books',          icon:'book' },
-  { id:'toys',        name:'Toys & Baby',    icon:'toy' },
-  { id:'sports',      name:'Sports',         icon:'ball' },
-  { id:'grocery',     name:'Grocery',        icon:'cart' },
-  { id:'auto',        name:'Auto Accessories', icon:'car' },
+const CATEGORY_ICON_KEYWORDS = [
+  [/phone|mobile/i, 'phone'],
+  [/laptop|notebook/i, 'laptop'],
+  [/audio|headphone|earbud|speaker/i, 'headphones'],
+  [/tv|television/i, 'tv'],
+  [/appliance|fridge|refrigerator|kitchen/i, 'fridge'],
+  [/watch|wearable/i, 'watch'],
+  [/camera/i, 'camera'],
+  [/gaming|game/i, 'gamepad'],
+  [/shirt|kurti|kurta|fashion|cloth|jean/i, 'shirt'],
+  [/shoe|footwear|sneaker/i, 'shoe'],
+  [/beauty|personal care|cosmetic/i, 'sparkle'],
+  [/home|decor/i, 'home'],
+  [/furniture|sofa/i, 'sofa'],
+  [/book/i, 'book'],
+  [/toy|baby/i, 'toy'],
+  [/sport|fitness/i, 'ball'],
+  [/grocery|staple/i, 'cart'],
+  [/auto|car/i, 'car'],
+  [/bag|luggage/i, 'cart'],
+  [/jewel/i, 'sparkle'],
 ];
+function iconKeyFor(name) {
+  const hit = CATEGORY_ICON_KEYWORDS.find(([re]) => re.test(name));
+  return hit ? hit[1] : 'sparkle';
+}
+function slugify(s) {
+  return String(s).toLowerCase().trim()
+    .replace(/&/g, 'and')
+    .replace(/'/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || 'misc';
+}
+
+// CATEGORIES is now built dynamically from whatever product data is loaded
+// (Supabase, or the local fallback list). See buildCategoriesFromProducts().
+let CATEGORIES = [];
+function buildCategoriesFromProducts(rawList) {
+  const seen = new Map();
+  rawList.forEach(p => {
+    if (!seen.has(p.cat)) seen.set(p.cat, p.catLabel || p.cat);
+  });
+  CATEGORIES = [...seen.entries()].map(([id, name]) => ({ id, name, icon: iconKeyFor(name) }));
+}
 
 // Deterministic pseudo-random generator (seeded) so numbers are stable per product
 function seededRand(seed) {
@@ -283,45 +307,19 @@ function seededRand(seed) {
 }
 function hashStr(str) { let h = 0; for (let i=0;i<str.length;i++){ h = (h<<5)-h+str.charCodeAt(i); h|=0; } return Math.abs(h); }
 
-const RAW_PRODUCTS = [
-  { id:'p1',  cat:'mobiles',    brand:'Samsung',  title:'Samsung Galaxy S24 Ultra 5G (256GB)', base:124999, img:'📱', rating:4.6, reviews:2140 },
-  { id:'p2',  cat:'mobiles',    brand:'Apple',    title:'Apple iPhone 15 (128GB)', base:69999, img:'📱', rating:4.7, reviews:5320 },
-  { id:'p3',  cat:'mobiles',    brand:'OnePlus',  title:'OnePlus 12R 5G (256GB)', base:39999, img:'📱', rating:4.4, reviews:1870 },
-  { id:'p4',  cat:'mobiles',    brand:'Xiaomi',   title:'Xiaomi Redmi Note 13 Pro+ 5G', base:29999, img:'📱', rating:4.3, reviews:3410 },
-  { id:'p5',  cat:'laptops',    brand:'Apple',    title:'Apple MacBook Air M3 (13-inch, 8GB/256GB)', base:114900, img:'💻', rating:4.8, reviews:980 },
-  { id:'p6',  cat:'laptops',    brand:'Dell',     title:'Dell XPS 13 (i7, 16GB/512GB)', base:129990, img:'💻', rating:4.5, reviews:640 },
-  { id:'p7',  cat:'laptops',    brand:'HP',       title:'HP Pavilion 15 (Ryzen 7, 16GB/512GB)', base:64999, img:'💻', rating:4.2, reviews:1120 },
-  { id:'p8',  cat:'laptops',    brand:'Lenovo',   title:'Lenovo IdeaPad Slim 5 (i5, 16GB/512GB)', base:57990, img:'💻', rating:4.3, reviews:890 },
-  { id:'p9',  cat:'audio',      brand:'Sony',     title:'Sony WH-1000XM5 Wireless Headphones', base:29990, img:'🎧', rating:4.7, reviews:2760 },
-  { id:'p10', cat:'audio',      brand:'boAt',     title:'boAt Airdopes 141 TWS Earbuds', base:1299, img:'🎧', rating:4.1, reviews:15400 },
-  { id:'p11', cat:'audio',      brand:'JBL',      title:'JBL Flip 6 Portable Bluetooth Speaker', base:9999, img:'🔊', rating:4.5, reviews:3200 },
-  { id:'p12', cat:'tv',         brand:'Samsung',  title:'Samsung 55" Crystal 4K UHD Smart TV', base:52990, img:'📺', rating:4.4, reviews:1450 },
-  { id:'p13', cat:'tv',         brand:'LG',       title:'LG 43" Full HD Smart LED TV', base:26990, img:'📺', rating:4.3, reviews:980 },
-  { id:'p14', cat:'appliances', brand:'LG',       title:'LG 260L Frost Free Double Door Refrigerator', base:28990, img:'🧊', rating:4.4, reviews:2100 },
-  { id:'p15', cat:'appliances', brand:'IFB',      title:'IFB 7kg Front Load Washing Machine', base:29990, img:'🌀', rating:4.3, reviews:1340 },
-  { id:'p16', cat:'wearables',  brand:'Apple',    title:'Apple Watch Series 9 (GPS, 41mm)', base:41900, img:'⌚', rating:4.7, reviews:1670 },
-  { id:'p17', cat:'wearables',  brand:'Noise',    title:'Noise ColorFit Pro 5 Smartwatch', base:2499, img:'⌚', rating:4.0, reviews:8900 },
-  { id:'p18', cat:'cameras',    brand:'Canon',    title:'Canon EOS R50 Mirrorless Camera (Body)', base:64990, img:'📷', rating:4.6, reviews:410 },
-  { id:'p19', cat:'gaming',     brand:'Sony',     title:'Sony PlayStation 5 Slim (Disc Edition)', base:49990, img:'🎮', rating:4.8, reviews:3300 },
-  { id:'p20', cat:'gaming',     brand:'Microsoft',title:'Xbox Series S 512GB', base:29990, img:'🎮', rating:4.4, reviews:1520 },
-  { id:'p21', cat:'fashion',    brand:'Levi\'s',  title:'Levi\'s 511 Slim Fit Jeans', base:2999, img:'👖', rating:4.3, reviews:4200 },
-  { id:'p22', cat:'footwear',   brand:'Nike',     title:'Nike Revolution 6 Running Shoes', base:3495, img:'👟', rating:4.4, reviews:6100 },
-  { id:'p23', cat:'footwear',   brand:'Puma',     title:'Puma Softride Sneakers', base:3999, img:'👟', rating:4.2, reviews:2300 },
-  { id:'p24', cat:'beauty',     brand:'Mamaearth',title:'Mamaearth Vitamin C Face Serum', base:599, img:'🧴', rating:4.2, reviews:12000 },
-  { id:'p25', cat:'home',       brand:'Prestige', brandNote:'', title:'Prestige Iris 750W Mixer Grinder', base:2799, img:'🍳', rating:4.3, reviews:5600 },
-  { id:'p26', cat:'furniture',  brand:'Nilkamal', title:'Nilkamal 3-Seater Fabric Sofa', base:18999, img:'🛋️', rating:4.1, reviews:340 },
-  { id:'p27', cat:'books',      brand:'Penguin',  title:'Atomic Habits — James Clear (Paperback)', base:499, img:'📚', rating:4.7, reviews:22000 },
-  { id:'p28', cat:'toys',       brand:'Lego',     title:'LEGO Classic Creative Bricks Box', base:1999, img:'🧱', rating:4.6, reviews:1900 },
-  { id:'p29', cat:'sports',     brand:'Yonex',    title:'Yonex ZR 100 Badminton Racquet', base:799, img:'🏸', rating:4.2, reviews:2600 },
-  { id:'p30', cat:'grocery',    brand:'Tata',     title:'Tata Sampann Toor Dal 1kg', base:189, img:'🌾', rating:4.4, reviews:8700 },
-  { id:'p31', cat:'auto',       brand:'3M',       title:'3M Car Dashboard Camera HD', base:3499, img:'🚗', rating:4.0, reviews:610 },
-  { id:'p32', cat:'mobiles',    brand:'Google',   title:'Google Pixel 8a (128GB)', base:52999, img:'📱', rating:4.5, reviews:1230 },
-  { id:'p33', cat:'audio',      brand:'Bose',     title:'Bose QuietComfort Earbuds II', base:24990, img:'🎧', rating:4.6, reviews:1080 },
-  { id:'p34', cat:'appliances', brand:'Voltas',   title:'Voltas 1.5 Ton 5 Star Split AC', base:36990, img:'❄️', rating:4.3, reviews:2760 },
+// Small local fallback list, used ONLY if Supabase isn't configured or the
+// products table can't be reached / is empty. Keeps the app from breaking.
+const FALLBACK_RAW_PRODUCTS = [
+  { id:'p1',  cat:'mobiles', catLabel:'Mobiles', brand:'Samsung',  title:'Samsung Galaxy S24 Ultra 5G (256GB)', base:124999, img:'📱', rating:4.6, reviews:2140 },
+  { id:'p2',  cat:'mobiles', catLabel:'Mobiles', brand:'Apple',    title:'Apple iPhone 15 (128GB)', base:69999, img:'📱', rating:4.7, reviews:5320 },
+  { id:'p5',  cat:'laptops', catLabel:'Laptops', brand:'Apple',    title:'Apple MacBook Air M3 (13-inch, 8GB/256GB)', base:114900, img:'💻', rating:4.8, reviews:980 },
+  { id:'p9',  cat:'audio',   catLabel:'Audio',   brand:'Sony',     title:'Sony WH-1000XM5 Wireless Headphones', base:29990, img:'🎧', rating:4.7, reviews:2760 },
+  { id:'p12', cat:'tv',      catLabel:'TVs',     brand:'Samsung',  title:'Samsung 55" Crystal 4K UHD Smart TV', base:52990, img:'📺', rating:4.4, reviews:1450 },
+  { id:'p19', cat:'gaming',  catLabel:'Gaming',  brand:'Sony',     title:'Sony PlayStation 5 Slim (Disc Edition)', base:49990, img:'🎮', rating:4.8, reviews:3300 },
 ];
 
-function buildProducts() {
-  return RAW_PRODUCTS.map((p, idx) => {
+function buildProducts(rawList) {
+  return rawList.map((p, idx) => {
     const rnd = seededRand(hashStr(p.id) + 17);
     const prices = SELLERS.map((s, si) => {
       const r2 = seededRand(hashStr(p.id + s.id));
@@ -356,7 +354,7 @@ function buildProducts() {
     history[history.length-1].price = lowest.price;
 
     const specsPool = {
-      General: [['Brand', p.brand], ['Model', p.title.split(' ').slice(0,3).join(' ')], ['SKU', 'PM-' + p.id.toUpperCase() + hashStr(p.id).toString().slice(0,4)], ['Category', CATEGORIES.find(c=>c.id===p.cat)?.name || p.cat]],
+      General: [['Brand', p.brand], ['Model', p.title.split(' ').slice(0,3).join(' ')], ['SKU', 'PM-' + p.id.toUpperCase() + hashStr(p.id).toString().slice(0,4)], ['Category', p.catLabel || p.cat]],
       Display: [['Screen', p.cat==='mobiles' ? '6.1-6.8" AMOLED' : p.cat==='laptops' ? '13-15.6" IPS' : p.cat==='tv' ? 'LED / 4K UHD' : 'N/A'], ['Refresh Rate', p.cat==='mobiles' ? '120Hz' : '60Hz']],
       Performance: [['Processor', p.cat==='mobiles' ? 'Octa-core Flagship' : p.cat==='laptops' ? 'Latest-gen CPU' : 'N/A'], ['RAM', p.cat==='mobiles'||p.cat==='laptops' ? '8-16GB' : 'N/A']],
       Box: [['Warranty', '1 Year Manufacturer Warranty'], ['In the Box', 'Unit, Cable, Manual']],
@@ -393,7 +391,8 @@ function buildProducts() {
   });
 }
 
-const PRODUCTS = buildProducts();
+let PRODUCTS = [];
+let DEALS = [];
 
 function genDeals() {
   const picks = [...PRODUCTS].sort((a,b)=> b.lowest.discount - a.lowest.discount).slice(0, 22);
@@ -405,7 +404,6 @@ function genDeals() {
     return { productId: p.id, type: i < 8 ? 'flash' : type, expiry };
   });
 }
-const DEALS = genDeals();
 
 /* ---------------------------------------------------------------------
    SUPABASE CONFIG
@@ -419,6 +417,37 @@ const SUPABASE_CONFIG = {
 };
 const SUPABASE_ENABLED = !SUPABASE_CONFIG.url.includes('YOUR_SUPABASE_URL') && !SUPABASE_CONFIG.anonKey.includes('YOUR_SUPABASE_ANON_KEY');
 const sb = SUPABASE_ENABLED ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey) : null;
+
+/* ---------------------------------------------------------------------
+   PRODUCT LOADING — pulls from Supabase `products` table (populated via
+   your CSV import). Falls back to a small local list if Supabase isn't
+   configured, the table is empty, or the request fails.
+--------------------------------------------------------------------- */
+async function loadRawProducts() {
+  if (SUPABASE_ENABLED) {
+    try {
+      const { data, error } = await sb.from('products').select('*').order('id', { ascending: true });
+      if (error) throw error;
+      if (data && data.length) {
+        return data.map(row => ({
+          id: 'p' + row.id,
+          cat: slugify(row.category),
+          catLabel: row.category,
+          brand: row.brand,
+          title: row.title,
+          base: Number(row.base_price),
+          img: row.image_emoji || '🛍️',
+          rating: Number(row.rating),
+          reviews: Number(row.reviews),
+        }));
+      }
+      console.warn('PriceMint: `products` table is empty — using local fallback data.');
+    } catch (e) {
+      console.error('PriceMint: could not load products from Supabase, using fallback.', e);
+    }
+  }
+  return FALLBACK_RAW_PRODUCTS;
+}
 
 /* ---------------------------------------------------------------------
    STATE
@@ -1708,12 +1737,24 @@ function applyTheme() { document.documentElement.style.filter = isDark ? 'invert
 document.getElementById('theme-toggle').addEventListener('click', ()=>{ isDark = !isDark; persist('theme', isDark?'dark':'light'); applyTheme(); });
 applyTheme();
 
-renderRoute();
-renderHeaderBits();
-restoreSupabaseSession();
-if (!SUPABASE_ENABLED) {
-  console.info('%cPriceMint: running in local mode.', 'color:#1DB954;font-weight:bold', '\nPaste your Supabase URL + anon key into SUPABASE_CONFIG (top of the script) to enable real accounts, wishlist and alerts.');
+async function boot() {
+  document.getElementById('app').innerHTML = `
+    <div class="flex flex-col items-center justify-center py-32">
+      <div class="w-10 h-10 border-4 border-line border-t-mint rounded-full animate-spin"></div>
+      <p class="text-muted text-sm mt-4">Loading products…</p>
+    </div>`;
+  const raw = await loadRawProducts();
+  buildCategoriesFromProducts(raw);
+  PRODUCTS = buildProducts(raw);
+  DEALS = genDeals();
+  renderRoute();
+  renderHeaderBits();
+  restoreSupabaseSession();
+  if (!SUPABASE_ENABLED) {
+    console.info('%cPriceMint: running in local mode.', 'color:#1DB954;font-weight:bold', '\nPaste your Supabase URL + anon key into SUPABASE_CONFIG (top of the script) to enable real accounts, wishlist and alerts.');
+  }
 }
+boot();
 
 </script>
 </body>
