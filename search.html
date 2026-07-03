@@ -46,7 +46,9 @@
 
                 <nav class="flex items-center gap-6">
                     <a href="deals.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:block">Deals</a>
-                    <a href="login.html" class="text-sm font-semibold bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-colors">Sign In</a>
+                    <div class="auth-link">
+                        <a href="login.html" class="text-sm font-semibold bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-colors">Sign In</a>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -199,6 +201,10 @@
                 }
             });
         });
+    </script>
+    <script type="module">
+        import { updateAuthUI } from './js/auth.js';
+        document.addEventListener('DOMContentLoaded', updateAuthUI);
     </script>
 </body>
 </html>
