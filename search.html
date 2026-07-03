@@ -132,7 +132,7 @@
             }
 
             try {
-                const res = await fetch(`http://localhost:3000/api/products?${urlParams.toString()}`);
+                const res = await fetch(`/api/products?${urlParams.toString()}`);
                 allProducts = await res.json();
                 renderResults(allProducts);
             } catch (e) {

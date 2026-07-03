@@ -156,7 +156,7 @@
             let productData = null;
 
             try {
-                const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+                const res = await fetch(`/api/products/${productId}`);
                 if (!res.ok) throw new Error('Product not found');
                 productData = await res.json();
 
@@ -223,7 +223,7 @@
                 const tp = prompt(`Set target price for ${productData.title}:\nEnter below ${productData.lowestPrice}:`);
                 if(tp && parseInt(tp) < productData.lowestPrice) {
                     try {
-                        const r = await fetch('http://localhost:3000/api/wishlist', {
+                        const r = await fetch('/api/wishlist', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ user_id: session.user.id, product_id: productData.id, target_price: parseInt(tp) })

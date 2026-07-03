@@ -930,6 +930,163 @@
           "price": 23999
         }
       ]
+    },
+    {
+      "id": "njch-1783100990507",
+      "title": "Njch (Latest Model)",
+      "brand": "njch",
+      "category": "smartphones",
+      "rating": 4.2,
+      "lowestPrice": 30736,
+      "originalPrice": 35736,
+      "discount": 14,
+      "image": "https://m.media-amazon.com/images/I/71yzJoE7WlL._SX679_.jpg",
+      "cheapestPlatform": "Amazon",
+      "cheapestUrl": "#",
+      "specs": {
+        "Status": "Newly Scraped",
+        "Source": "Live Data"
+      },
+      "prices": [
+        {
+          "platform": "Amazon",
+          "price": 30736,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        },
+        {
+          "platform": "Flipkart",
+          "price": 31936,
+          "logo": "https://www.logo.wine/a/logo/Flipkart/Flipkart-Icon-Logo.wine.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 33810
+        },
+        {
+          "date": "2026-06-04",
+          "price": 33810
+        },
+        {
+          "date": "2026-06-05",
+          "price": 33810
+        },
+        {
+          "date": "2026-06-06",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-07",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-08",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-09",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-10",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-11",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-12",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-13",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-14",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-15",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-16",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-17",
+          "price": 35310
+        },
+        {
+          "date": "2026-06-18",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-19",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-20",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-21",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-22",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-23",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-24",
+          "price": 35310
+        },
+        {
+          "date": "2026-06-25",
+          "price": 35310
+        },
+        {
+          "date": "2026-06-26",
+          "price": 34810
+        },
+        {
+          "date": "2026-06-27",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-28",
+          "price": 34310
+        },
+        {
+          "date": "2026-06-29",
+          "price": 30736
+        },
+        {
+          "date": "2026-06-30",
+          "price": 30736
+        },
+        {
+          "date": "2026-07-01",
+          "price": 30736
+        },
+        {
+          "date": "2026-07-02",
+          "price": 30736
+        },
+        {
+          "date": "2026-07-03",
+          "price": 30736
+        }
+      ]
     }
   ],
   "wishlists": []

@@ -88,7 +88,7 @@
 
         async function loadDeals() {
             try {
-                const res = await fetch('http://localhost:3000/api/deals');
+                const res = await fetch('/api/deals');
                 const deals = await res.json();
                 loading.classList.add('hidden');
                 grid.classList.remove('hidden');

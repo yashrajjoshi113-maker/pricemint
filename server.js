@@ -98,22 +98,43 @@ const SEED_PRODUCTS = [
 ];
 
 if (!fs.existsSync(DB_FILE)) {
-    fs.writeFileSync(DB_FILE, JSON.stringify({ products: SEED_PRODUCTS, wishlists: [] }, null, 2));
+    try {
+        fs.writeFileSync(DB_FILE, JSON.stringify({ products: SEED_PRODUCTS, wishlists: [] }, null, 2));
+    } catch(e) { /* Ignore EROFS on Vercel */ }
 } else {
-    // If we've run before but missing seeded products, merge them so UI always has data
-    const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
-    let added = false;
-    SEED_PRODUCTS.forEach(sp => {
-        if (!db.products.find(p => p.id === sp.id)) {
-            db.products.push(sp);
-            added = true;
-        }
-    });
-    if (added) fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
+    try {
+        const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+        let added = false;
+        SEED_PRODUCTS.forEach(sp => {
+            if (!db.products.find(p => p.id === sp.id)) {
+                db.products.push(sp);
+                added = true;
+            }
+        });
+        if (added) fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
+    } catch(e) { /* Ignore errors on Vercel */ }
 }
 
-const readDB = () => JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
-const writeDB = (data) => fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+let memoryDB = null;
+
+const readDB = () => {
+    try {
+        if (memoryDB) return memoryDB;
+        return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+    } catch(e) {
+        if(!memoryDB) memoryDB = { products: SEED_PRODUCTS, wishlists: [] };
+        return memoryDB;
+    }
+};
+
+const writeDB = (data) => {
+    memoryDB = data;
+    try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    } catch(e) {
+        // Vercel is read-only. Fallback to in-memory (memoryDB is updated).
+    }
+};
 
 app.get('/api/products', async (req, res) => {
     const db = readDB();
