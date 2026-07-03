@@ -1,0 +1,213 @@
+<!-- 
+  PriceMint — Shared Template Reference
+  All pages should follow these patterns for consistency.
+  This file is NOT served directly — it's a reference for builders.
+-->
+
+<!-- ============== HTML HEAD BOILERPLATE ============== -->
+<!-- Use this exact head in every page, changing only title and meta description -->
+<!--
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAGE_TITLE | PriceMint — India's Smartest Price Comparison</title>
+    <meta name="description" content="PAGE_META_DESCRIPTION">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-cream: #FAF8F5;
+            --color-cream-dark: #F0EDE8;
+            --color-charcoal: #1A1A1A;
+            --color-charcoal-light: #2D2D2D;
+            --color-savings: #1DB954;
+            --color-savings-light: #E8F8EE;
+            --color-warning: #EF4444;
+            --color-warning-light: #FEF2F2;
+            --color-accent: #FF6B35;
+            --color-accent-light: #FFF3ED;
+            --color-info: #3B82F6;
+            --color-info-light: #EFF6FF;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Outfit', system-ui, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+-->
+
+<!-- ============== HEADER ============== -->
+<header id="site-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
+                <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <span class="text-white font-display font-bold text-base">P</span>
+                </div>
+                <span class="font-display font-bold text-xl text-charcoal tracking-tight">Price<span class="text-savings">Mint</span></span>
+            </a>
+            <!-- Search Bar (desktop) -->
+            <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                <div class="relative w-full" id="search-container">
+                    <input type="text" id="header-search" placeholder="Search products, brands, categories..."
+                           class="w-full pl-11 pr-12 py-2.5 bg-gray-100 rounded-xl border border-transparent focus:border-charcoal focus:bg-white focus:outline-none transition-all text-sm search-glow"
+                           autocomplete="off">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <div id="search-autocomplete" class="autocomplete-dropdown hidden"></div>
+                </div>
+            </div>
+            <!-- Nav Links -->
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="deals.html" class="text-sm text-gray-500 hover:text-charcoal transition-colors hidden sm:block font-medium">Deals</a>
+                <a href="wishlist.html" class="relative text-gray-500 hover:text-charcoal transition-colors p-1" title="Wishlist">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    <span id="wishlist-count" class="hidden absolute -top-0.5 -right-0.5 w-4 h-4 bg-savings text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+                </a>
+                <a href="login.html" id="auth-btn" class="text-sm font-semibold bg-charcoal text-white px-4 py-2 rounded-xl hover:bg-charcoal-light transition-colors">Sign In</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- ============== FOOTER ============== -->
+<footer class="bg-charcoal text-white mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><span class="text-white font-display font-bold text-sm">P</span></div>
+                    <span class="font-display font-bold text-lg">Price<span class="text-savings">Mint</span></span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">India's smartest price comparison platform. Find the best deals across trusted retailers.</p>
+            </div>
+            <div>
+                <h4 class="font-display font-semibold text-sm mb-4 uppercase tracking-wider text-gray-300">Categories</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><a href="search.html?category=smartphones" class="hover:text-white transition-colors">Smartphones</a></li>
+                    <li><a href="search.html?category=laptops" class="hover:text-white transition-colors">Laptops</a></li>
+                    <li><a href="search.html?category=audio" class="hover:text-white transition-colors">Audio</a></li>
+                    <li><a href="search.html?category=tvs" class="hover:text-white transition-colors">TVs & Displays</a></li>
+                    <li><a href="search.html?category=gaming" class="hover:text-white transition-colors">Gaming</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display font-semibold text-sm mb-4 uppercase tracking-wider text-gray-300">Company</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><a href="deals.html" class="hover:text-white transition-colors">Today's Deals</a></li>
+                    <li><a href="admin.html" class="hover:text-white transition-colors">Admin</a></li>
+                    <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="affiliate-disclosure.html" class="hover:text-white transition-colors">Affiliate Disclosure</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display font-semibold text-sm mb-4 uppercase tracking-wider text-gray-300">Connect</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Twitter / X</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">YouTube</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Email Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="border-white/10 mb-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <p>&copy; 2026 PriceMint. All rights reserved.</p>
+            <p class="text-xs text-gray-600">PriceMint earns commissions from qualifying purchases via affiliate links. <a href="affiliate-disclosure.html" class="underline hover:text-white">Learn more</a>. Prices may change after redirect.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ============== MOBILE BOTTOM NAV ============== -->
+<!-- Add to every consumer-facing page (not admin) -->
+<nav class="mobile-nav" id="mobile-nav">
+    <div class="flex items-center justify-around">
+        <a href="index.html" class="flex flex-col items-center gap-0.5 p-2 text-gray-400 hover:text-charcoal transition-colors" id="mob-home">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <span class="text-[10px] font-medium">Home</span>
+        </a>
+        <a href="search.html" class="flex flex-col items-center gap-0.5 p-2 text-gray-400 hover:text-charcoal transition-colors" id="mob-search">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <span class="text-[10px] font-medium">Search</span>
+        </a>
+        <a href="deals.html" class="flex flex-col items-center gap-0.5 p-2 text-gray-400 hover:text-charcoal transition-colors" id="mob-deals">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+            <span class="text-[10px] font-medium">Deals</span>
+        </a>
+        <a href="wishlist.html" class="flex flex-col items-center gap-0.5 p-2 text-gray-400 hover:text-charcoal transition-colors" id="mob-wishlist">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            <span class="text-[10px] font-medium">Wishlist</span>
+        </a>
+        <a href="login.html" class="flex flex-col items-center gap-0.5 p-2 text-gray-400 hover:text-charcoal transition-colors" id="mob-account">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span class="text-[10px] font-medium">Account</span>
+        </a>
+    </div>
+</nav>
+
+<!-- ============== COOKIE CONSENT BANNER ============== -->
+<!-- Add to every page, just before </body> -->
+<div id="cookie-banner" class="fixed bottom-0 sm:bottom-4 left-0 right-0 z-[60] px-4 hidden">
+    <div class="max-w-2xl mx-auto bg-charcoal text-white rounded-2xl p-5 shadow-2xl slide-up flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="flex-1">
+            <p class="text-sm font-medium mb-1">🍪 We value your privacy</p>
+            <p class="text-xs text-gray-400 leading-relaxed">We use cookies to enhance your browsing experience and analyze site traffic. By continuing, you agree to our <a href="privacy.html" class="underline text-gray-300 hover:text-white">Privacy Policy</a>.</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+            <button onclick="acceptCookies()" class="text-sm font-semibold bg-savings text-white px-5 py-2 rounded-xl hover:bg-green-600 transition-colors cursor-pointer">Accept</button>
+            <button onclick="dismissCookies()" class="text-sm font-medium text-gray-400 px-3 py-2 rounded-xl hover:text-white transition-colors cursor-pointer">Dismiss</button>
+        </div>
+    </div>
+</div>
+<script>
+function acceptCookies(){localStorage.setItem('pm_cookies','accepted');document.getElementById('cookie-banner').classList.add('hidden')}
+function dismissCookies(){localStorage.setItem('pm_cookies','dismissed');document.getElementById('cookie-banner').classList.add('hidden')}
+if(!localStorage.getItem('pm_cookies')){setTimeout(()=>document.getElementById('cookie-banner').classList.remove('hidden'),2500)}
+</script>
+
+<!-- ============== SHARED APP SCRIPTS ============== -->
+<!-- Always include data.js BEFORE page-specific scripts -->
+<!-- On pages that need search: include app.js for autocomplete -->
+<!--
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/PAGE_SPECIFIC.js"></script>
+-->
+
+<!-- ============== PRODUCT CARD TEMPLATE (for JS rendering) ============== -->
+<!-- 
+function renderProductCard(product) {
+  const cheapest = PriceMint.getCheapestSeller(product);
+  return `
+    <a href="product.html?id=${product.id}" class="block bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover group">
+      <div class="aspect-square bg-cream-dark overflow-hidden">
+        <img src="${product.thumbnail}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+      </div>
+      <div class="p-4">
+        <p class="text-xs text-gray-400 font-medium mb-1">${product.brand}</p>
+        <h3 class="text-sm font-semibold text-charcoal line-clamp-2 mb-2 leading-snug">${product.title}</h3>
+        <div class="flex items-baseline gap-2 mb-1.5">
+          <span class="text-lg font-bold text-charcoal num">${PriceMint.formatPrice(product.currentLowestPrice)}</span>
+          ${product.originalPrice > product.currentLowestPrice ? `<span class="text-xs text-gray-400 line-through num">${PriceMint.formatPrice(product.originalPrice)}</span>` : ''}
+        </div>
+        <div class="flex items-center gap-2">
+          ${product.discount > 0 ? `<span class="badge badge-green">${product.discount}% off</span>` : ''}
+          <span class="text-xs text-gray-400">from ${product.storeCount} stores</span>
+        </div>
+        <div class="flex items-center gap-1 mt-2">
+          <span class="text-xs stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}</span>
+          <span class="text-xs text-gray-400">(${product.reviewCount.toLocaleString('en-IN')})</span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+-->
+
+<!-- ============== BODY CLASS ============== -->
+<!-- Add class="bg-cream font-sans has-mobile-nav" to <body> for consumer pages -->
+<!-- Add class="bg-gray-50 font-sans" to <body> for admin pages (no mobile nav) -->
