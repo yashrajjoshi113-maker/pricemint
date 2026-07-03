@@ -414,8 +414,8 @@ const DEALS = genDeals();
    falls back to the old localStorage-only mode, so nothing breaks.
 --------------------------------------------------------------------- */
 const SUPABASE_CONFIG = {
-  url: 'YOUR_SUPABASE_URL',       // e.g. 'https://abcxyz.supabase.co'
-  anonKey: 'YOUR_SUPABASE_ANON_KEY',
+  url: 'benzsffnnjfmhbvsllpg',       // e.g. 'https://abcxyz.supabase.co'
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJlbnpzZmZubmpmbWhidnNsbHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwNzQzODUsImV4cCI6MjA5ODY1MDM4NX0.yng58KUJlLCZAJvQmvsFLKyCFoF0Dz0H8OjUkJnT1-E',
 };
 const SUPABASE_ENABLED = !SUPABASE_CONFIG.url.includes('YOUR_SUPABASE_URL') && !SUPABASE_CONFIG.anonKey.includes('YOUR_SUPABASE_ANON_KEY');
 const sb = SUPABASE_ENABLED ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey) : null;
