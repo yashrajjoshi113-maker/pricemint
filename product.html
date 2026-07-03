@@ -3,126 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details | PriceMint</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Search & Compare | PriceMint</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style type="text/tailwindcss">
-        @theme { --color-charcoal: #111827; --color-savings: #10B981; --font-sans: 'Inter', sans-serif; --font-display: 'Outfit', sans-serif; }
+        @theme { --color-msp-orange: #ff7e00; --color-msp-blue: #0f4094; }
     </style>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
-        .font-display { font-family: 'Outfit', sans-serif; }
-        .price-row:hover { background-color: #F1F5F9; }
-        .shadow-soft { box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #111827; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { font-family: 'Roboto', Arial, sans-serif; background-color: #f1f3f6; color: #212121; }
+        .nav-link { color: #212121; font-weight: 500; font-size: 14px; text-decoration: none; padding: 12px 16px; display: inline-block; }
+        .nav-link:hover { color: #ff7e00; border-bottom: 2px solid #ff7e00; }
+        .btn-orange { background-color: #ff7e00; color: white; padding: 8px 24px; border-radius: 2px; font-weight: 600; text-transform: uppercase; font-size: 14px; transition: background 0.2s; }
+        .btn-orange:hover { background-color: #e67100; }
+        .search-input { border: 1px solid #e0e0e0; border-right: none; border-radius: 4px 0 0 4px; padding: 10px 16px; font-size: 14px; outline: none; }
+        .search-input:focus { border-color: #ff7e00; }
+        .search-btn { background-color: #ff7e00; color: white; border-radius: 0 4px 4px 0; padding: 0 20px; font-weight: bold; }
+        .spec-table td { border-bottom: 1px solid #e0e0e0; padding: 12px 16px; font-size: 14px; }
+        .spec-table tr:last-child td { border-bottom: none; }
+        .store-logo { max-width: 100px; max-height: 30px; object-fit: contain; }
     </style>
 </head>
-<body class="text-gray-900 min-h-screen flex flex-col">
+<body>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
-                    <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-                        <span class="text-white font-display font-bold text-base">P</span>
-                    </div>
-                    <span class="font-display font-bold text-xl tracking-tight text-gray-900">Price<span class="text-green-500">Mint</span></span>
+    <!-- Top Bar -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-[1280px] mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-1 shrink-0">
+                <div class="w-8 h-8 bg-msp-blue flex items-center justify-center rounded text-white font-bold text-xl">P</div>
+                <span class="font-bold text-2xl text-msp-blue">Price<span class="text-msp-orange">Mint</span></span>
+            </a>
+            
+            <form id="search-form" class="flex flex-1 max-w-2xl mx-8 relative">
+                <input type="text" id="header-search" class="search-input w-full" placeholder="Search for mobile phones, laptops, electronics...">
+                <button type="submit" class="search-btn flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+            </form>
+
+            <div class="flex items-center gap-4 text-sm font-medium">
+                <a href="deals.html" class="flex items-center gap-1 hover:text-msp-orange">
+                    Daily Deals
                 </a>
-                
-                <!-- Desktop Search -->
-                <div class="hidden md:flex flex-1 max-w-xl mx-8 relative">
-                    <input type="text" id="header-search" placeholder="Search for products..." class="w-full pl-11 pr-4 py-2.5 bg-gray-100 rounded-xl border-transparent focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 outline-none transition-all text-sm">
-                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <div class="w-px h-6 bg-gray-300"></div>
+                <div class="auth-link">
+                    <a href="login.html" class="flex items-center gap-1 hover:text-msp-blue">Login / Signup</a>
                 </div>
-
-                <nav class="flex items-center gap-6">
-                    <a href="search.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:block">Explore</a>
-                    <a href="deals.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors hidden sm:block">Deals</a>
-                    <div class="auth-link">
-                        <a href="login.html" class="text-sm font-semibold bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-colors">Sign In</a>
-                    </div>
-                </nav>
             </div>
         </div>
-    </header>
+    </div>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- Loader -->
-        <div id="loading" class="flex flex-col items-center justify-center py-20">
-            <div class="loader mb-4"></div>
-            <p class="text-gray-500 font-medium">Fetching best prices across India...</p>
+    <!-- Category Menu -->
+    <div class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-[1280px] mx-auto px-4 flex space-x-2">
+            <a href="search.html?category=smartphones" class="nav-link">Mobiles</a>
+            <a href="search.html?category=laptops" class="nav-link">Laptops</a>
+            <a href="search.html?category=audio" class="nav-link">Audio</a>
+            <a href="search.html" class="nav-link">TV & Appliances</a>
         </div>
+    </div>
 
-        <div id="product-container" class="hidden">
-            <nav class="flex text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
-                <a href="index.html" class="hover:text-gray-900">Home</a><span class="mx-2">/</span>
-                <span class="text-gray-900 font-medium truncate max-w-xs" id="bc-title">Product</span>
-            </nav>
-
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Left: Product Image & Specs -->
-                <div class="lg:w-5/12">
-                    <div class="bg-white rounded-[2rem] p-8 shadow-soft flex items-center justify-center border border-gray-100 mb-6 sticky top-24 relative">
-                        <button id="alert-btn" class="absolute top-4 right-4 bg-white border border-gray-200 shadow-sm p-2.5 rounded-xl hover:bg-gray-50 hover:text-red-500 transition-colors group flex items-center gap-2" title="Set Price Alert">
-                            <svg class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                            <span class="text-xs font-bold text-gray-700 group-hover:text-red-500">Alert</span>
+    <div class="max-w-[1280px] mx-auto px-4 py-6">
+        <div id="loading" class="py-20 text-center text-gray-500 text-lg font-medium">Fetching details...</div>
+        
+        <div id="content" class="hidden">
+            <!-- Breadcrumbs -->
+            <div class="text-sm text-gray-500 mb-4">
+                <a href="index.html" class="hover:text-msp-blue hover:underline">Home</a> &gt; <span id="bc-title" class="text-gray-900">Product</span>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Left Column: Image -->
+                <div class="lg:w-[350px] shrink-0">
+                    <div class="bg-white border border-gray-200 p-6 flex flex-col items-center justify-center relative sticky top-6">
+                        <button id="alert-btn" class="absolute top-4 right-4 bg-white border border-gray-300 p-2 rounded shadow-sm hover:text-msp-orange text-gray-500 flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                            <span class="text-xs font-bold">Set Alert</span>
                         </button>
-                        <img id="p-image" src="" alt="Product Image" class="w-full h-auto max-h-96 object-contain">
+                        <img id="p-image" src="" alt="Product" class="max-w-full h-auto max-h-80 object-contain mb-4">
+                        <div id="p-title" class="text-lg font-bold text-gray-900 text-center leading-snug"></div>
                     </div>
                 </div>
 
-                <!-- Right: Product Info & Comparison -->
-                <div class="lg:w-7/12">
-                    <div class="mb-6">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span id="p-brand" class="text-sm font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2.5 py-0.5 rounded-full">Brand</span>
+                <!-- Right Column: Details & Stores -->
+                <div class="flex-1">
+                    <!-- Price Banner -->
+                    <div class="bg-white border border-gray-200 mb-4 overflow-hidden">
+                        <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
+                            <h2 class="text-sm font-bold uppercase text-gray-700">Compare Prices</h2>
                         </div>
-                        <h1 id="p-title" class="text-3xl sm:text-4xl font-display font-bold text-gray-900 leading-tight mb-4">Title</h1>
+                        <div class="p-4 flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 bg-[#f9fbff]">
+                            <div>
+                                <span class="text-sm text-gray-600 block mb-1">Best Price</span>
+                                <span id="p-lowest-price" class="text-3xl font-bold text-[#d0021b]">₹0</span>
+                                <span id="p-original-price" class="text-sm text-gray-400 line-through ml-2">₹0</span>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-xs text-gray-500 block mb-1">Available at</span>
+                                <img id="p-cheapest-logo" src="" class="h-6 object-contain mx-auto">
+                            </div>
+                            <a id="p-buy-btn" href="#" target="_blank" class="btn-orange text-lg px-8 py-3">Go To Store</a>
+                        </div>
                         
-                        <div class="flex items-end gap-3 mb-4">
-                            <span id="p-lowest-price" class="text-4xl font-display font-bold text-gray-900">₹0</span>
-                            <span id="p-original-price" class="text-lg text-gray-400 line-through mb-1">₹0</span>
+                        <!-- Other stores -->
+                        <div id="other-stores" class="divide-y divide-gray-200">
+                            <!-- Injected by JS -->
                         </div>
-                        <p class="text-sm text-gray-500 font-medium">Lowest price available on <strong id="p-cheapest-plat" class="text-gray-900">Platform</strong></p>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-soft border border-gray-100 overflow-hidden mb-8">
-                        <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
-                            <h2 class="font-display font-bold text-lg text-gray-900">Compare Prices</h2>
+                    <!-- Specs -->
+                    <div class="bg-white border border-gray-200 mb-4">
+                        <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
+                            <h2 class="text-sm font-bold uppercase text-gray-700">Key Specifications</h2>
                         </div>
-                        <div class="divide-y divide-gray-100" id="prices-list"></div>
+                        <table class="w-full spec-table" id="p-specs">
+                            <!-- Injected -->
+                        </table>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-8">
-                        <h2 class="font-display font-bold text-lg text-gray-900 mb-4">Key Specifications</h2>
-                        <ul id="p-specs" class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6"></ul>
-                    </div>
-
-                    <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-8">
-                        <h2 class="font-display font-bold text-lg text-gray-900 mb-4">Price History (30 Days)</h2>
-                        <div class="w-full h-64 relative"><canvas id="priceChart"></canvas></div>
+                    <!-- Price History -->
+                    <div class="bg-white border border-gray-200 p-4">
+                        <h2 class="text-sm font-bold uppercase text-gray-700 mb-4">Price History (30 Days)</h2>
+                        <div class="w-full h-64"><canvas id="priceChart"></canvas></div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Auth & Logic -->
+    <!-- Scripts -->
     <script type="module">
         import { checkSession, updateAuthUI } from './js/auth.js';
+        document.addEventListener('DOMContentLoaded', updateAuthUI);
+        window.checkSession = checkSession;
+    </script>
+    <script>
         const formatPrice = (price) => '₹' + price.toLocaleString('en-IN');
         
+        document.getElementById('search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const q = document.getElementById('header-search').value.trim();
+            if(q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+        });
+
         document.addEventListener('DOMContentLoaded', async () => {
-            await updateAuthUI();
-            
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
             if (!productId) {
-                document.getElementById('loading').innerHTML = '<p class="text-red-500 font-bold">No product ID provided.</p>';
+                document.getElementById('loading').innerHTML = '<span class="text-red-500 font-bold">No product ID specified.</span>';
                 return;
             }
 
@@ -133,33 +160,37 @@
                 if (!res.ok) throw new Error('Product not found');
                 productData = await res.json();
 
-                // Populate Data
+                // Bind Data
                 document.getElementById('bc-title').textContent = productData.title;
-                document.getElementById('p-image').src = productData.image;
-                document.getElementById('p-brand').textContent = productData.brand;
                 document.getElementById('p-title').textContent = productData.title;
+                document.getElementById('p-image').src = productData.image;
                 document.getElementById('p-lowest-price').textContent = formatPrice(productData.lowestPrice);
                 document.getElementById('p-original-price').textContent = formatPrice(productData.originalPrice);
-                document.getElementById('p-cheapest-plat').textContent = productData.cheapestPlatform;
+                
+                // Sort Prices
+                if (productData.prices && productData.prices.length > 0) {
+                    productData.prices.sort((a,b) => a.price - b.price);
+                    const best = productData.prices[0];
+                    document.getElementById('p-cheapest-logo').src = best.logo;
+                    document.getElementById('p-buy-btn').href = best.url;
+
+                    const otherStoresHTML = productData.prices.slice(1).map(p => `
+                        <div class="flex items-center justify-between p-4 hover:bg-gray-50">
+                            <img src="${p.logo}" class="store-logo">
+                            <span class="font-bold text-gray-800 text-lg">${formatPrice(p.price)}</span>
+                            <a href="${p.url}" target="_blank" class="text-sm font-bold text-msp-blue border border-msp-blue px-4 py-1.5 rounded hover:bg-msp-blue hover:text-white transition-colors">Go to Store</a>
+                        </div>
+                    `).join('');
+                    document.getElementById('other-stores').innerHTML = otherStoresHTML;
+                }
 
                 // Specs
                 if (productData.specs) {
                     document.getElementById('p-specs').innerHTML = Object.entries(productData.specs).map(([key, val]) => `
-                        <li class="flex items-start text-sm"><span class="font-medium text-gray-500 w-1/3">${key}:</span><span class="text-gray-900 font-semibold w-2/3">${val}</span></li>
-                    `).join('');
-                }
-
-                // Prices
-                if (productData.prices && productData.prices.length > 0) {
-                    productData.prices.sort((a,b) => a.price - b.price);
-                    document.getElementById('prices-list').innerHTML = productData.prices.map((p, i) => `
-                        <div class="flex items-center justify-between px-6 py-4 price-row">
-                            <div class="flex items-center gap-4">
-                                <img src="${p.logo}" class="w-16 h-8 object-contain bg-white rounded border border-gray-100">
-                                <div><span class="block font-bold text-gray-900">${formatPrice(p.price)}</span></div>
-                            </div>
-                            <a href="${p.url}" class="px-5 py-2 rounded-xl text-sm font-semibold ${i === 0 ? 'bg-gray-900 text-white' : 'bg-gray-100'}">Buy</a>
-                        </div>
+                        <tr>
+                            <td class="w-1/3 text-gray-500 bg-gray-50 font-medium">${key}</td>
+                            <td class="w-2/3 text-gray-900">${val}</td>
+                        </tr>
                     `).join('');
                 }
 
@@ -170,49 +201,37 @@
                         type: 'line',
                         data: {
                             labels: productData.history.map(h => h.date.substring(5)),
-                            datasets: [{ label: 'Price', data: productData.history.map(h => h.price), borderColor: '#111827', backgroundColor: 'rgba(17, 24, 39, 0.05)', fill: true, tension: 0.3 }]
+                            datasets: [{ label: 'Price (₹)', data: productData.history.map(h => h.price), borderColor: '#0f4094', backgroundColor: 'rgba(15, 64, 148, 0.1)', fill: true, tension: 0.1 }]
                         }
                     });
                 }
 
                 document.getElementById('loading').classList.add('hidden');
-                document.getElementById('product-container').classList.remove('hidden');
+                document.getElementById('content').classList.remove('hidden');
             } catch (err) {
-                document.getElementById('loading').innerHTML = '<p class="text-red-500 font-bold">Failed to load product.</p>';
+                document.getElementById('loading').innerHTML = '<span class="text-red-500 font-bold">Failed to load product. Backend might be off or product does not exist.</span>';
             }
 
-            // Price Alert Logic
-            const alertBtn = document.getElementById('alert-btn');
-            alertBtn.addEventListener('click', async () => {
-                const session = await checkSession();
+            // Price Alert
+            document.getElementById('alert-btn').addEventListener('click', async () => {
+                const session = typeof checkSession === 'function' ? await checkSession() : null;
                 if(!session) {
-                    alert("Please sign in to set a price alert.");
+                    alert("Please log in to set an alert.");
                     window.location.href = 'login.html';
                     return;
                 }
-                
-                const targetStr = prompt(`Set target price for ${productData.title} (Current: ${formatPrice(productData.lowestPrice)}):\nEnter amount in numbers:`);
-                if(!targetStr) return;
-                const target_price = parseInt(targetStr);
-                if(isNaN(target_price) || target_price >= productData.lowestPrice) {
-                    alert("Please enter a valid price lower than the current price.");
-                    return;
-                }
-
-                alertBtn.innerHTML = '<div class="loader w-4 h-4 border-2"></div>';
-                try {
-                    const r = await fetch('http://localhost:3000/api/wishlist', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ user_id: session.user.id, product_id: productData.id, target_price })
-                    });
-                    if(r.ok) {
-                        alert("Price alert set successfully! You can view it in your Wishlist.");
-                        alertBtn.innerHTML = '<span class="text-xs font-bold text-green-600">Tracked ✓</span>';
-                    }
-                } catch(e) {
-                    alert("Failed to set alert.");
-                    alertBtn.innerHTML = '<span class="text-xs font-bold">Alert</span>';
+                const tp = prompt(`Set target price for ${productData.title}:\nEnter below ${productData.lowestPrice}:`);
+                if(tp && parseInt(tp) < productData.lowestPrice) {
+                    try {
+                        const r = await fetch('http://localhost:3000/api/wishlist', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ user_id: session.user.id, product_id: productData.id, target_price: parseInt(tp) })
+                        });
+                        if(r.ok) alert("Price Alert Set!");
+                    } catch(e) { alert("Failed to set alert."); }
+                } else {
+                    alert("Invalid target price.");
                 }
             });
         });

@@ -1,0 +1,936 @@
+{
+  "products": [
+    {
+      "id": "iphone-15-128gb",
+      "title": "Apple iPhone 15 (Black, 128 GB)",
+      "brand": "Apple",
+      "category": "smartphones",
+      "rating": 4.6,
+      "lowestPrice": 71999,
+      "originalPrice": 79900,
+      "discount": 9,
+      "image": "https://m.media-amazon.com/images/I/71657TiFeHL._SX679_.jpg",
+      "cheapestPlatform": "Flipkart",
+      "cheapestUrl": "#",
+      "specs": {
+        "Display": "6.1\" Super Retina XDR",
+        "Processor": "A16 Bionic",
+        "Camera": "48MP Main"
+      },
+      "prices": [
+        {
+          "platform": "Flipkart",
+          "price": 71999,
+          "logo": "https://www.logo.wine/a/logo/Flipkart/Flipkart-Icon-Logo.wine.svg",
+          "url": "#"
+        },
+        {
+          "platform": "Amazon",
+          "price": 72500,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 78699
+        },
+        {
+          "date": "2026-06-04",
+          "price": 78699
+        },
+        {
+          "date": "2026-06-05",
+          "price": 78699
+        },
+        {
+          "date": "2026-06-06",
+          "price": 78199
+        },
+        {
+          "date": "2026-06-07",
+          "price": 78199
+        },
+        {
+          "date": "2026-06-08",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-09",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-10",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-11",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-12",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-13",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-14",
+          "price": 77699
+        },
+        {
+          "date": "2026-06-15",
+          "price": 77199
+        },
+        {
+          "date": "2026-06-16",
+          "price": 77199
+        },
+        {
+          "date": "2026-06-17",
+          "price": 77199
+        },
+        {
+          "date": "2026-06-18",
+          "price": 76699
+        },
+        {
+          "date": "2026-06-19",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-20",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-21",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-22",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-23",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-24",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-25",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-26",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-27",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-28",
+          "price": 76199
+        },
+        {
+          "date": "2026-06-29",
+          "price": 71999
+        },
+        {
+          "date": "2026-06-30",
+          "price": 71999
+        },
+        {
+          "date": "2026-07-01",
+          "price": 71999
+        },
+        {
+          "date": "2026-07-02",
+          "price": 71999
+        },
+        {
+          "date": "2026-07-03",
+          "price": 71999
+        }
+      ]
+    },
+    {
+      "id": "samsung-s24-ultra",
+      "title": "Samsung Galaxy S24 Ultra 5G (Titanium Gray, 256 GB)",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "rating": 4.8,
+      "lowestPrice": 129999,
+      "originalPrice": 134999,
+      "discount": 3,
+      "image": "https://m.media-amazon.com/images/I/71R2oE17C8L._SX679_.jpg",
+      "cheapestPlatform": "Amazon",
+      "cheapestUrl": "#",
+      "specs": {
+        "Display": "6.8\" Dynamic AMOLED",
+        "Processor": "Snapdragon 8 Gen 3",
+        "Camera": "200MP"
+      },
+      "prices": [
+        {
+          "platform": "Amazon",
+          "price": 129999,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        },
+        {
+          "platform": "Reliance",
+          "price": 131000,
+          "logo": "https://www.reliancedigital.in/build/client/images/loaders/rd_logo.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-04",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-05",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-06",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-07",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-08",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-09",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-10",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-11",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-12",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-13",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-14",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-15",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-16",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-17",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-18",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-19",
+          "price": 142999
+        },
+        {
+          "date": "2026-06-20",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-21",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-22",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-23",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-24",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-25",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-26",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-27",
+          "price": 142499
+        },
+        {
+          "date": "2026-06-28",
+          "price": 141999
+        },
+        {
+          "date": "2026-06-29",
+          "price": 129999
+        },
+        {
+          "date": "2026-06-30",
+          "price": 129999
+        },
+        {
+          "date": "2026-07-01",
+          "price": 129999
+        },
+        {
+          "date": "2026-07-02",
+          "price": 129999
+        },
+        {
+          "date": "2026-07-03",
+          "price": 129999
+        }
+      ]
+    },
+    {
+      "id": "oneplus-12r",
+      "title": "OnePlus 12R (Iron Gray, 8GB RAM, 128GB Storage)",
+      "brand": "OnePlus",
+      "category": "smartphones",
+      "rating": 4.5,
+      "lowestPrice": 39999,
+      "originalPrice": 39999,
+      "discount": 0,
+      "image": "https://m.media-amazon.com/images/I/71XNeka-BRL._SX679_.jpg",
+      "cheapestPlatform": "Amazon",
+      "cheapestUrl": "#",
+      "specs": {
+        "Display": "6.78\" AMOLED",
+        "Processor": "Snapdragon 8 Gen 2",
+        "Battery": "5500mAh"
+      },
+      "prices": [
+        {
+          "platform": "Amazon",
+          "price": 39999,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 43999
+        },
+        {
+          "date": "2026-06-04",
+          "price": 43999
+        },
+        {
+          "date": "2026-06-05",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-06",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-07",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-08",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-09",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-10",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-11",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-12",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-13",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-14",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-15",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-16",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-17",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-18",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-19",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-20",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-21",
+          "price": 42499
+        },
+        {
+          "date": "2026-06-22",
+          "price": 42499
+        },
+        {
+          "date": "2026-06-23",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-24",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-25",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-26",
+          "price": 42999
+        },
+        {
+          "date": "2026-06-27",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-28",
+          "price": 43499
+        },
+        {
+          "date": "2026-06-29",
+          "price": 39999
+        },
+        {
+          "date": "2026-06-30",
+          "price": 39999
+        },
+        {
+          "date": "2026-07-01",
+          "price": 39999
+        },
+        {
+          "date": "2026-07-02",
+          "price": 39999
+        },
+        {
+          "date": "2026-07-03",
+          "price": 39999
+        }
+      ]
+    },
+    {
+      "id": "macbook-air-m1",
+      "title": "Apple MacBook Air M1 (8GB RAM, 256GB SSD)",
+      "brand": "Apple",
+      "category": "laptops",
+      "rating": 4.7,
+      "lowestPrice": 79990,
+      "originalPrice": 99900,
+      "discount": 19,
+      "image": "https://m.media-amazon.com/images/I/71jG+e7roXL._SX679_.jpg",
+      "cheapestPlatform": "Amazon",
+      "cheapestUrl": "#",
+      "specs": {
+        "Processor": "Apple M1",
+        "RAM": "8GB Unified",
+        "Storage": "256GB SSD",
+        "Display": "13.3\" Retina"
+      },
+      "prices": [
+        {
+          "platform": "Amazon",
+          "price": 79990,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        },
+        {
+          "platform": "Croma",
+          "price": 82990,
+          "logo": "https://www.croma.com/assets/images/croma_logo_light.png",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-04",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-05",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-06",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-07",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-08",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-09",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-10",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-11",
+          "price": 87489
+        },
+        {
+          "date": "2026-06-12",
+          "price": 87489
+        },
+        {
+          "date": "2026-06-13",
+          "price": 87489
+        },
+        {
+          "date": "2026-06-14",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-15",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-16",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-17",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-18",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-19",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-20",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-21",
+          "price": 88489
+        },
+        {
+          "date": "2026-06-22",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-23",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-24",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-25",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-26",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-27",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-28",
+          "price": 87989
+        },
+        {
+          "date": "2026-06-29",
+          "price": 79990
+        },
+        {
+          "date": "2026-06-30",
+          "price": 79990
+        },
+        {
+          "date": "2026-07-01",
+          "price": 79990
+        },
+        {
+          "date": "2026-07-02",
+          "price": 79990
+        },
+        {
+          "date": "2026-07-03",
+          "price": 79990
+        }
+      ]
+    },
+    {
+      "id": "sony-xm5",
+      "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+      "brand": "Sony",
+      "category": "audio",
+      "rating": 4.6,
+      "lowestPrice": 25990,
+      "originalPrice": 34990,
+      "discount": 25,
+      "image": "https://m.media-amazon.com/images/I/51aXvjzcukL._SX522_.jpg",
+      "cheapestPlatform": "Amazon",
+      "cheapestUrl": "#",
+      "specs": {
+        "Type": "Over-Ear",
+        "Battery": "30 Hours",
+        "Features": "Industry Leading ANC"
+      },
+      "prices": [
+        {
+          "platform": "Amazon",
+          "price": 25990,
+          "logo": "https://www.logo.wine/a/logo/Amazon_(company)/Amazon_(company)-Icon-White-Dark-Background-Logo.wine.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-04",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-05",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-06",
+          "price": 29089
+        },
+        {
+          "date": "2026-06-07",
+          "price": 29089
+        },
+        {
+          "date": "2026-06-08",
+          "price": 29089
+        },
+        {
+          "date": "2026-06-09",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-10",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-11",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-12",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-13",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-14",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-15",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-16",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-17",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-18",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-19",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-20",
+          "price": 28589
+        },
+        {
+          "date": "2026-06-21",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-22",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-23",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-24",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-25",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-26",
+          "price": 27589
+        },
+        {
+          "date": "2026-06-27",
+          "price": 28089
+        },
+        {
+          "date": "2026-06-28",
+          "price": 27589
+        },
+        {
+          "date": "2026-06-29",
+          "price": 25990
+        },
+        {
+          "date": "2026-06-30",
+          "price": 25990
+        },
+        {
+          "date": "2026-07-01",
+          "price": 25990
+        },
+        {
+          "date": "2026-07-02",
+          "price": 25990
+        },
+        {
+          "date": "2026-07-03",
+          "price": 25990
+        }
+      ]
+    },
+    {
+      "id": "nothing-phone-2a",
+      "title": "Nothing Phone (2a) 5G (Black, 8GB RAM, 128GB Storage)",
+      "brand": "Nothing",
+      "category": "smartphones",
+      "rating": 4.4,
+      "lowestPrice": 23999,
+      "originalPrice": 25999,
+      "discount": 7,
+      "image": "https://m.media-amazon.com/images/I/718yG0n166L._SX679_.jpg",
+      "cheapestPlatform": "Flipkart",
+      "cheapestUrl": "#",
+      "specs": {
+        "Display": "6.7\" Flexible AMOLED",
+        "Processor": "Dimensity 7200 Pro",
+        "Camera": "50MP+50MP"
+      },
+      "prices": [
+        {
+          "platform": "Flipkart",
+          "price": 23999,
+          "logo": "https://www.logo.wine/a/logo/Flipkart/Flipkart-Icon-Logo.wine.svg",
+          "url": "#"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-03",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-04",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-05",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-06",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-07",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-08",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-09",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-10",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-11",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-12",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-13",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-14",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-15",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-16",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-17",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-18",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-19",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-20",
+          "price": 25899
+        },
+        {
+          "date": "2026-06-21",
+          "price": 26399
+        },
+        {
+          "date": "2026-06-22",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-23",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-24",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-25",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-26",
+          "price": 27399
+        },
+        {
+          "date": "2026-06-27",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-28",
+          "price": 26899
+        },
+        {
+          "date": "2026-06-29",
+          "price": 23999
+        },
+        {
+          "date": "2026-06-30",
+          "price": 23999
+        },
+        {
+          "date": "2026-07-01",
+          "price": 23999
+        },
+        {
+          "date": "2026-07-02",
+          "price": 23999
+        },
+        {
+          "date": "2026-07-03",
+          "price": 23999
+        }
+      ]
+    }
+  ],
+  "wishlists": []
+}
