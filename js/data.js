@@ -322,12 +322,7 @@ const products = [
       { sellerId: 'amazon', price: 101999, originalPrice: 109999, discount: 7, shipping: 0, deliveryDays: 1, deliveryEstimate: 'Jul 4', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'croma', price: 104999, originalPrice: 109999, discount: 5, shipping: 0, deliveryDays: 4, deliveryEstimate: 'Jul 7', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
     ],
-    aiSummary: {
-      features: ['Best AI features on any phone (Gemini built-in)', 'Pure Android experience with 7 years of updates', 'Exceptional computational photography', '16GB RAM for on-device AI'],
-      pros: ['Best-in-class AI features', 'Pure Android, no bloatware', 'Incredible photo processing', '7 years of guaranteed updates'],
-      cons: ['Tensor G4 less powerful than Snapdragon 8 Elite in raw benchmarks', 'Limited availability in India', 'No expandable storage'],
-      recommendation: 'Best phone for AI enthusiasts and pure Android lovers. The 9% discount on Flipkart makes it a great time to buy.'
-    },
+    aiSummary: { features: ['Best AI features on any phone (Gemini built-in)', 'Pure Android experience with 7 years of updates', 'Exceptional computational photography', '16GB RAM for on-device AI'], pros: ['Best-in-class AI features', 'Pure Android, no bloatware', 'Incredible photo processing', '7 years of guaranteed updates'], cons: ['Tensor G4 less powerful than Snapdragon 8 Elite in raw benchmarks', 'Limited availability in India', 'No expandable storage'], recommendation: 'Best phone for AI enthusiasts and pure Android lovers. The 9% discount on Flipkart makes it a great time to buy.' },
     subScores: { quality: 4.5, value: 4.2, durability: 4.3, easeOfUse: 4.8, support: 4.4 },
     reviews: [
       { author: 'Sanjay T.', rating: 5, date: '2026-06-12', title: 'AI on a phone done right', body: 'Gemini integration is seamless. Magic Eraser and Best Take are features I use daily. Pure Android experience is refreshing.', helpful: 198, source: 'Flipkart' },
@@ -351,25 +346,13 @@ const products = [
     inStock: true,
     tags: ['trending', 'best-value'],
     warranty: '1 Year Nothing Warranty',
-    specs: {
-      'Display': '6.7" LTPO OLED, FHD+, 120Hz',
-      'Processor': 'Snapdragon 8s Gen 3',
-      'RAM': '8 GB',
-      'Rear Camera': '50MP + 50MP (Glyph enhanced)',
-      'Battery': '5000 mAh, 45W',
-      'OS': 'Android 15, Nothing OS 3',
-    },
+    specs: { 'Display': '6.7" LTPO OLED, FHD+, 120Hz', 'Processor': 'Snapdragon 8s Gen 3', 'RAM': '8 GB', 'Rear Camera': '50MP + 50MP (Glyph enhanced)', 'Battery': '5000 mAh, 45W', 'OS': 'Android 15, Nothing OS 3' },
     sellerPrices: [
       { sellerId: 'flipkart', price: 37999, originalPrice: 39999, discount: 5, shipping: 0, deliveryDays: 2, deliveryEstimate: 'Jul 5', inStock: true, warranty: '1 Year', coupon: null, cashback: 500, affiliateUrl: '#' },
       { sellerId: 'amazon', price: 38499, originalPrice: 39999, discount: 4, shipping: 0, deliveryDays: 1, deliveryEstimate: 'Jul 4', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'croma', price: 39499, originalPrice: 39999, discount: 1, shipping: 0, deliveryDays: 4, deliveryEstimate: 'Jul 7', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
     ],
-    aiSummary: {
-      features: ['Unique transparent Glyph interface', 'Clean Nothing OS with minimal bloat', 'Flagship-grade cameras at mid-range price', 'Distinctive design stands out'],
-      pros: ['Unique design language', 'Clean, fast software', 'Great value for money', 'Excellent haptics'],
-      cons: ['Limited service centers in India', 'Glyph is a novelty that fades', 'No telephoto camera', 'Average battery life'],
-      recommendation: 'Best phone under ₹40K if you want something that stands out. Flipkart\'s ₹37,999 deal with cashback is the way to go.'
-    },
+    aiSummary: { features: ['Unique transparent Glyph interface', 'Clean Nothing OS with minimal bloat', 'Flagship-grade cameras at mid-range price', 'Distinctive design stands out'], pros: ['Unique design language', 'Clean, fast software', 'Great value for money', 'Excellent haptics'], cons: ['Limited service centers in India', 'Glyph is a novelty that fades', 'No telephoto camera', 'Average battery life'], recommendation: 'Best phone under ₹40K if you want something that stands out. Flipkart\'s ₹37,999 deal with cashback is the way to go.' },
     subScores: { quality: 4.3, value: 4.6, durability: 4.1, easeOfUse: 4.4, support: 3.8 },
     reviews: [],
     relatedProducts: ['oneplus-13', 'pixel-9-pro'],
@@ -393,16 +376,7 @@ const products = [
     inStock: true,
     tags: ['editor-pick', 'ai-recommended'],
     warranty: '1 Year Apple Warranty',
-    specs: {
-      'Display': '13.6" Liquid Retina, 2560x1664, 500 nits',
-      'Processor': 'Apple M4 (10-core CPU, 10-core GPU)',
-      'RAM': '16 GB Unified Memory',
-      'Storage': '256 GB SSD',
-      'Battery': 'Up to 18 hours',
-      'Weight': '1.24 kg',
-      'Ports': '2x Thunderbolt 4, MagSafe, 3.5mm jack',
-      'OS': 'macOS Sequoia',
-    },
+    specs: { 'Display': '13.6" Liquid Retina, 2560x1664, 500 nits', 'Processor': 'Apple M4 (10-core CPU, 10-core GPU)', 'RAM': '16 GB Unified Memory', 'Storage': '256 GB SSD', 'Battery': 'Up to 18 hours', 'Weight': '1.24 kg', 'Ports': '2x Thunderbolt 4, MagSafe, 3.5mm jack', 'OS': 'macOS Sequoia' },
     sellerPrices: [
       { sellerId: 'amazon', price: 109900, originalPrice: 114900, discount: 4, shipping: 0, deliveryDays: 1, deliveryEstimate: 'Jul 4', inStock: true, warranty: '1 Year Apple Warranty', coupon: 'MAC3K', couponDiscount: 3000, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'flipkart', price: 110900, originalPrice: 114900, discount: 3, shipping: 0, deliveryDays: 2, deliveryEstimate: 'Jul 5', inStock: true, warranty: '1 Year', coupon: null, cashback: 1500, affiliateUrl: '#' },
@@ -410,12 +384,7 @@ const products = [
       { sellerId: 'reliance', price: 111900, originalPrice: 114900, discount: 3, shipping: 0, deliveryDays: 3, deliveryEstimate: 'Jul 6', inStock: true, warranty: '1 Year', coupon: null, cashback: 2000, affiliateUrl: '#' },
       { sellerId: 'tatacliq', price: 113500, originalPrice: 114900, discount: 1, shipping: 0, deliveryDays: 5, deliveryEstimate: 'Jul 8', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
     ],
-    aiSummary: {
-      features: ['M4 chip delivers 50% faster performance than M3', 'Fanless, silent operation', '18-hour battery life', 'Stunning Liquid Retina display'],
-      pros: ['Incredible performance per watt', 'Best laptop display in its class', 'Absolutely silent operation', 'Outstanding build quality'],
-      cons: ['Only 2 Thunderbolt ports', 'Base model has 256GB storage', 'No touchscreen', 'Limited to 1 external display (without workaround)'],
-      recommendation: 'The best laptop for 90% of people. Amazon\'s ₹1,09,900 with the MAC3K coupon for additional ₹3,000 off is unbeatable.'
-    },
+    aiSummary: { features: ['M4 chip delivers 50% faster performance than M3', 'Fanless, silent operation', '18-hour battery life', 'Stunning Liquid Retina display'], pros: ['Incredible performance per watt', 'Best laptop display in its class', 'Absolutely silent operation', 'Outstanding build quality'], cons: ['Only 2 Thunderbolt ports', 'Base model has 256GB storage', 'No touchscreen', 'Limited to 1 external display (without workaround)'], recommendation: 'The best laptop for 90% of people. Amazon\'s ₹1,09,900 with the MAC3K coupon for additional ₹3,000 off is unbeatable.' },
     subScores: { quality: 4.9, value: 4.5, durability: 4.7, easeOfUse: 4.9, support: 4.6 },
     reviews: [
       { author: 'Meera J.', rating: 5, date: '2026-06-22', title: 'Perfect everyday laptop', body: 'Silent, fast, and the battery lasts all day. M4 handles everything I throw at it. Best laptop purchase ever.', helpful: 312, source: 'Amazon.in' },
@@ -439,27 +408,14 @@ const products = [
     inStock: true,
     tags: ['price-drop'],
     warranty: '1 Year Dell Warranty',
-    specs: {
-      'Display': '15.6" OLED 3.5K, 3456x2160, 400 nits, Touch',
-      'Processor': 'Intel Core Ultra 9 285H',
-      'RAM': '32 GB DDR5',
-      'Storage': '1 TB SSD',
-      'GPU': 'NVIDIA RTX 4070 (8GB)',
-      'Battery': '86 Whr, ~12 hours',
-      'Weight': '1.86 kg',
-    },
+    specs: { 'Display': '15.6" OLED 3.5K, 3456x2160, 400 nits, Touch', 'Processor': 'Intel Core Ultra 9 285H', 'RAM': '32 GB DDR5', 'Storage': '1 TB SSD', 'GPU': 'NVIDIA RTX 4070 (8GB)', 'Battery': '86 Whr, ~12 hours', 'Weight': '1.86 kg' },
     sellerPrices: [
       { sellerId: 'amazon', price: 142990, originalPrice: 154990, discount: 8, shipping: 0, deliveryDays: 2, deliveryEstimate: 'Jul 5', inStock: true, warranty: '1 Year', coupon: null, cashback: 3000, affiliateUrl: '#' },
       { sellerId: 'flipkart', price: 145990, originalPrice: 154990, discount: 6, shipping: 0, deliveryDays: 2, deliveryEstimate: 'Jul 5', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'croma', price: 149990, originalPrice: 154990, discount: 3, shipping: 0, deliveryDays: 4, deliveryEstimate: 'Jul 7', inStock: true, warranty: '1 Year + ADP', coupon: null, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'reliance', price: 148990, originalPrice: 154990, discount: 4, shipping: 0, deliveryDays: 3, deliveryEstimate: 'Jul 6', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
     ],
-    aiSummary: {
-      features: ['Stunning 3.5K OLED touchscreen', 'RTX 4070 for creative workloads', '32GB DDR5 RAM standard', 'Premium machined aluminum chassis'],
-      pros: ['Breathtaking OLED display', 'Strong GPU for content creation', 'Excellent keyboard and trackpad', 'Good port selection'],
-      cons: ['OLED battery drain is noticeable', 'Gets warm under sustained load', 'Webcam quality is average', 'Expensive for what you get vs MacBook'],
-      recommendation: 'Best Windows laptop for creatives. The 8% drop on Amazon to ₹1,42,990 is a solid deal — this laptop rarely goes below ₹1,45K.'
-    },
+    aiSummary: { features: ['Stunning 3.5K OLED touchscreen', 'RTX 4070 for creative workloads', '32GB DDR5 RAM standard', 'Premium machined aluminum chassis'], pros: ['Breathtaking OLED display', 'Strong GPU for content creation', 'Excellent keyboard and trackpad', 'Good port selection'], cons: ['OLED battery drain is noticeable', 'Gets warm under sustained load', 'Webcam quality is average', 'Expensive for what you get vs MacBook'], recommendation: 'Best Windows laptop for creatives. The 8% drop on Amazon to ₹1,42,990 is a solid deal — this laptop rarely goes below ₹1,45K.' },
     subScores: { quality: 4.5, value: 3.8, durability: 4.3, easeOfUse: 4.2, support: 4.0 },
     reviews: [],
     relatedProducts: ['macbook-air-m4', 'hp-spectre-x360', 'asus-rog-g16'],
@@ -572,12 +528,7 @@ const products = [
       { sellerId: 'reliance', price: 24490, originalPrice: 29990, discount: 18, shipping: 0, deliveryDays: 3, deliveryEstimate: 'Jul 6', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
       { sellerId: 'tatacliq', price: 25990, originalPrice: 29990, discount: 13, shipping: 199, deliveryDays: 5, deliveryEstimate: 'Jul 8', inStock: true, warranty: '1 Year', coupon: null, cashback: 0, affiliateUrl: '#' },
     ],
-    aiSummary: {
-      features: ['Industry-leading noise cancellation', '30-hour battery with ANC', 'Multipoint Bluetooth for 2 devices simultaneously', 'Speak-to-Chat auto-pause'],
-      pros: ['Best ANC on the market', 'Incredibly comfortable for all-day wear', 'Excellent call quality', 'Premium sound signature'],
-      cons: ['No folding design — less portable than XM4', 'Touch controls can be finicky', 'Not great for working out (no sweat resistance)', 'Expensive at full price'],
-      recommendation: 'The 23% discount to ₹22,990 on Amazon is near the all-time low. If you\'re looking for premium ANC headphones, this is THE time to buy. Don\'t wait.'
-    },
+    aiSummary: { features: ['Industry-leading noise cancellation', '30-hour battery with ANC', 'Multipoint Bluetooth for 2 devices simultaneously', 'Speak-to-Chat auto-pause'], pros: ['Best ANC on the market', 'Incredibly comfortable for all-day wear', 'Excellent call quality', 'Premium sound signature'], cons: ['No folding design — less portable than XM4', 'Touch controls can be finicky', 'Not great for working out (no sweat resistance)', 'Expensive at full price'], recommendation: 'The 23% discount to ₹22,990 on Amazon is near the all-time low. If you\'re looking for premium ANC headphones, this is THE time to buy. Don\'t wait.' },
     subScores: { quality: 4.8, value: 4.3, durability: 4.4, easeOfUse: 4.5, support: 4.3 },
     reviews: [
       { author: 'Arjun S.', rating: 5, date: '2026-06-25', title: 'ANC is witchcraft', body: 'Put these on in a busy cafe and the world disappears. Sound quality is warm and detailed. Worth every rupee.', helpful: 456, source: 'Amazon.in' },
@@ -1165,6 +1116,46 @@ const editorPickIds = ['iphone-16-pro-max', 'macbook-air-m4', 'sony-wh1000xm5', 
 const aiRecommendedIds = ['pixel-9-pro', 'macbook-air-m4', 'irobot-roomba-j7', 'thinkpad-x1-carbon', 'ipad-air-m2'];
 const mostComparedIds = ['sony-wh1000xm5', 'airpods-pro-2', 'levis-501', 'instant-pot-duo', 'lg-c4-55', 'iphone-16-pro-max', 'samsung-s25-ultra'];
 
+// --- TRUST / SOCIAL PROOF DATA ---
+const siteStats = [
+  { id: 'shoppers', value: 2100000, suffix: '+', label: 'Smart Shoppers', icon: '🧑\u200d🤝\u200d🧑' },
+  { id: 'products', value: 48500, suffix: '+', label: 'Products Tracked', icon: '📦' },
+  { id: 'sellers', value: 6, suffix: '', label: 'Trusted Retailers', icon: '🏬' },
+  { id: 'saved', value: 38, suffix: ' Cr+', label: 'Saved For Users (₹)', icon: '💰' },
+];
+
+const testimonials = [
+  { id: 1, name: 'Ritika Sharma', location: 'Bengaluru', avatarInitials: 'RS', rating: 5, text: 'I was about to buy the S25 Ultra on Amazon at full price. PriceMint showed me a coupon that saved me ₹5,000 in two clicks. Never buying without checking here first.' },
+  { id: 2, name: 'Aditya Verma', location: 'Delhi', avatarInitials: 'AV', rating: 5, text: 'The price history charts are what sold me. I could actually see the Sony XM5 was at an all-time low before buying — no more guessing if a "deal" is real.' },
+  { id: 3, name: 'Fatima Khan', location: 'Hyderabad', avatarInitials: 'FK', rating: 4, text: 'Set a price alert on the MacBook Air and got notified the moment it dropped. Saved me from checking five different sites every day.' },
+  { id: 4, name: 'Karan Mehta', location: 'Pune', avatarInitials: 'KM', rating: 5, text: 'Compared the same TV across four sellers side by side, including hidden shipping fees. Reliance actually turned out cheaper than Amazon that day — wouldn\'t have known otherwise.' },
+  { id: 5, name: 'Sneha Iyer', location: 'Chennai', avatarInitials: 'SI', rating: 5, text: 'The AI summary of reviews saves me so much scrolling. It genuinely reads like a friend who already tested the product told me the pros and cons.' },
+  { id: 6, name: 'Rohit Nair', location: 'Mumbai', avatarInitials: 'RN', rating: 4, text: 'Found a laptop deal here that wasn\'t even showing on the retailer\'s own homepage. This is now my first stop before any big purchase.' },
+];
+
+const trustBadges = [
+  { icon: '🔒', title: 'Secure Redirects', desc: 'We link you straight to the verified retailer checkout — never a third-party middleman.' },
+  { icon: '📊', title: '365-Day Price History', desc: 'See exactly how a price has moved over the last year before you decide.' },
+  { icon: '🔔', title: 'Free Price Alerts', desc: 'Tell us your target price — we\'ll email you the moment it hits.' },
+  { icon: '🤖', title: 'AI Review Summaries', desc: 'Thousands of reviews condensed into honest pros, cons, and a verdict.' },
+];
+
+const howItWorksSteps = [
+  { step: 1, title: 'Search or browse', desc: 'Find any product across 18 categories and 6 major Indian retailers in one search bar.' },
+  { step: 2, title: 'Compare instantly', desc: 'See live prices, coupons, cashback, delivery time, and warranty side by side.' },
+  { step: 3, title: 'Buy at the best price', desc: 'Click through to the cheapest verified seller and check out directly on their site.' },
+];
+
+const faqs = [
+  { q: 'Is PriceMint free to use?', a: 'Yes, completely free. We earn a small commission from retailers when you make a purchase through our links — this never affects the price you pay.' },
+  { q: 'How often are prices updated?', a: 'Prices are refreshed continuously throughout the day as retailers change them, so what you see is as close to real-time as possible.' },
+  { q: 'Do you sell products directly?', a: 'No. PriceMint is a comparison platform only. When you click "Buy Now" you\'re taken to the retailer\'s own site to complete your purchase securely.' },
+  { q: 'How do price alerts work?', a: 'Set your target price on any product page and we\'ll email you the moment any tracked seller drops to or below that price.' },
+  { q: 'Which retailers do you compare?', a: 'We currently track Amazon.in, Flipkart, Croma, Reliance Digital, Tata CLiQ, and Myntra, with more being added regularly.' },
+];
+
+const partnerBrands = ['Apple', 'Samsung', 'Sony', 'OnePlus', 'Dell', 'LG', 'JBL', 'Nike', 'Dyson', 'Lenovo', 'ASUS', 'Google'];
+
 // --- HELPER FUNCTIONS ---
 function getProductById(id) {
   return products.find(p => p.id === id);
@@ -1193,6 +1184,13 @@ function searchProducts(query) {
 
 function formatDiscount(discount) {
   return discount + '% off';
+}
+
+function formatCompactNumber(num) {
+  if (num >= 10000000) return (num / 10000000).toFixed(1).replace(/\.0$/, '') + 'Cr';
+  if (num >= 100000) return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+  if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return String(num);
 }
 
 function getStarHTML(rating) {
@@ -1228,6 +1226,58 @@ function getBestValueSeller(product) {
   });
 }
 
+// --- WISHLIST (persisted in localStorage) ---
+const WISHLIST_KEY = 'pm_wishlist';
+
+function getWishlist() {
+  try {
+    return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function isInWishlist(productId) {
+  return getWishlist().includes(productId);
+}
+
+function toggleWishlist(productId) {
+  let list = getWishlist();
+  let added;
+  if (list.includes(productId)) {
+    list = list.filter(id => id !== productId);
+    added = false;
+  } else {
+    list.push(productId);
+    added = true;
+  }
+  localStorage.setItem(WISHLIST_KEY, JSON.stringify(list));
+  return added;
+}
+
+// --- RECENTLY VIEWED (persisted in localStorage) ---
+const RECENTLY_VIEWED_KEY = 'pm_recently_viewed';
+const RECENTLY_VIEWED_MAX = 8;
+
+function getRecentlyViewed() {
+  try {
+    const ids = JSON.parse(localStorage.getItem(RECENTLY_VIEWED_KEY)) || [];
+    return getProductsByIds(ids);
+  } catch (e) {
+    return [];
+  }
+}
+
+function addRecentlyViewed(productId) {
+  try {
+    let ids = JSON.parse(localStorage.getItem(RECENTLY_VIEWED_KEY)) || [];
+    ids = ids.filter(id => id !== productId);
+    ids.unshift(productId);
+    ids = ids.slice(0, RECENTLY_VIEWED_MAX);
+    localStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(ids));
+  } catch (e) { /* ignore quota errors */ }
+}
+
 // --- EXPORT TO GLOBAL ---
 window.PriceMint = {
   products,
@@ -1240,9 +1290,16 @@ window.PriceMint = {
   aiRecommendedIds,
   mostComparedIds,
   categoryGradients,
+  siteStats,
+  testimonials,
+  trustBadges,
+  howItWorksSteps,
+  faqs,
+  partnerBrands,
   // Helpers
   formatPrice,
   formatDiscount,
+  formatCompactNumber,
   getProductById,
   getProductsByCategory,
   getProductsByIds,
@@ -1254,4 +1311,9 @@ window.PriceMint = {
   getBestValueSeller,
   generatePriceHistory,
   generateProductImage,
+  getWishlist,
+  isInWishlist,
+  toggleWishlist,
+  getRecentlyViewed,
+  addRecentlyViewed,
 };
