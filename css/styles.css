@@ -10,12 +10,24 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background-color: #FAF8F5;
   color: #1A1A1A;
   overflow-x: hidden;
 }
+
+.text-balance { text-wrap: balance; }
 
 /* === Custom Scrollbar === */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -107,6 +119,11 @@ body {
   font-family: 'Inter', monospace;
 }
 
+/* Countdown segments sitting on a dark deal card need a lighter tone */
+.deal-card .countdown-seg {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 /* === Tooltip === */
 .tooltip { position: relative; }
 .tooltip::after {
@@ -142,7 +159,10 @@ body {
   scroll-padding-left: 24px;
 }
 .scroll-x::-webkit-scrollbar { display: none; }
-.scroll-x > * { scroll-snap-align: start; flex-shrink: 0; }
+.scroll-x > * { scroll-snap-align: start; flex-shrink: 0; width: 220px; }
+@media (min-width: 640px) {
+  .scroll-x > * { width: 240px; }
+}
 
 /* === Image Zoom === */
 .img-zoom { overflow: hidden; border-radius: 12px; }
@@ -187,12 +207,12 @@ body {
   border-radius: 1px;
 }
 
-/* === Slide Up (Cookie Banner) === */
+/* === Slide Up (Cookie Banner / Toasts) === */
 @keyframes slideUp {
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-.slide-up { animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.slide-up { animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* === Modal Overlay === */
 .modal-overlay {
@@ -357,6 +377,56 @@ h1, h2, h3, h4, .font-display { font-family: 'Outfit', system-ui, sans-serif; }
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.focus\:not-sr-only:focus {
+  position: fixed;
+  width: auto; height: auto;
+  margin: 0; overflow: visible;
+  clip: auto;
+}
+
+/* === Wishlist heart button === */
+.wishlist-btn svg { transition: transform 0.2s ease, fill 0.2s ease, stroke 0.2s ease; }
+.wishlist-btn:active svg { transform: scale(0.85); }
+.wishlist-btn.is-active svg { stroke: #DC2626; }
+.wishlist-btn.is-active { animation: heartPop 0.35s ease; }
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* === FAQ Accordion === */
+.faq-panel { display: grid; }
+.faq-chevron { transition: transform 0.3s ease; }
+
+/* === Brand Marquee === */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+.marquee-track {
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* === Toast container base (JS creates the element, this just anchors it) === */
+#toast-container { max-width: calc(100vw - 32px); }
 
 /* === Print styles === */
 @media print {
