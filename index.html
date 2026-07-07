@@ -5,42 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PriceMint — India's Smartest Price Comparison</title>
     <meta name="description" content="Compare prices across India's top retailers — Amazon, Flipkart, Croma, Reliance Digital, Tata CLiQ & Myntra. Track price history, set alerts, and never overpay again.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2315151A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-        @theme {
-            --color-cream: #FAF8F5;
-            --color-cream-dark: #F0EDE8;
-            --color-charcoal: #1A1A1A;
-            --color-charcoal-light: #2D2D2D;
-            --color-savings: #1DB954;
-            --color-savings-light: #E8F8EE;
-            --color-warning: #EF4444;
-            --color-warning-light: #FEF2F2;
-            --color-accent: #FF6B35;
-            --color-accent-light: #FFF3ED;
-            --color-info: #3B82F6;
-            --color-info-light: #EFF6FF;
-            --font-sans: 'Inter', system-ui, sans-serif;
-            --font-display: 'Outfit', system-ui, sans-serif;
-        }
-    </style>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-cream font-sans has-mobile-nav">
+<body class="bg-cream font-sans has-mobile-nav text-charcoal">
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:bg-charcoal focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Skip to content</a>
 
     <!-- Promo strip -->
     <div class="bg-charcoal text-white text-center text-xs sm:text-sm py-2 px-4 font-medium">
-        🎉 Independence Day Sale incoming — <a href="deals.html" class="underline hover:text-savings transition-colors">set a price alert now</a> so you don't miss the drop
+        🎉 Independence Day Sale incoming — <a href="deals.html" class="underline decoration-savings underline-offset-2 hover:text-savings transition-colors">set a price alert now</a> so you don't miss the drop
     </div>
 
     <!-- Header -->
-    <header id="site-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 transition-shadow">
+    <header id="site-header" class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-gray-200/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
@@ -54,7 +36,7 @@
                 <div class="hidden md:flex flex-1 max-w-xl mx-8">
                     <div class="relative w-full" id="search-container">
                         <input type="text" id="header-search" placeholder="Search products, brands, categories..."
-                               class="w-full pl-11 pr-12 py-2.5 bg-gray-100 rounded-xl border border-transparent focus:border-charcoal focus:bg-white focus:outline-none transition-all text-sm search-glow"
+                               class="w-full pl-11 pr-12 py-2.5 bg-gray-100 rounded-xl border border-transparent focus:border-savings focus:bg-white focus:outline-none transition-all text-sm search-glow"
                                autocomplete="off">
                         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         <div id="search-autocomplete" class="autocomplete-dropdown hidden absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50"></div>
@@ -68,8 +50,8 @@
                         <span id="wishlist-count" class="hidden absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-0.5 bg-savings text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
                     </a>
                     <div class="auth-link">
-                    <a href="login.html" id="auth-btn" class="text-sm font-semibold bg-charcoal text-white px-4 py-2 rounded-xl hover:bg-charcoal-light transition-colors">Sign In</a>
-                </div>
+                        <a href="login.html" id="auth-btn" class="text-sm font-semibold bg-charcoal text-white px-4 py-2 rounded-xl hover:bg-charcoal-light transition-colors">Sign In</a>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -78,6 +60,21 @@
     <main id="main-content">
     <!-- Hero -->
     <section class="relative overflow-hidden py-16 md:py-28 px-4 text-center">
+        <!-- Signature motif: The Price Line — a sparkline that dips into savings green -->
+        <div class="price-line-field opacity-70">
+            <svg viewBox="0 0 1200 500" preserveAspectRatio="none" class="w-full h-full">
+                <defs>
+                    <linearGradient id="lineFade" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#E11D48"/>
+                        <stop offset="55%" stop-color="#F2542D"/>
+                        <stop offset="100%" stop-color="#0E9F6E"/>
+                    </linearGradient>
+                </defs>
+                <path class="price-line-path" d="M0,180 C 120,140 180,260 260,220 S 420,80 480,140 S 620,320 700,260 S 860,120 940,150 S 1080,60 1200,90"
+                      fill="none" stroke="url(#lineFade)" stroke-width="3" stroke-linecap="round"/>
+                <circle class="price-line-dot" cx="1200" cy="90" r="7" fill="#0E9F6E"/>
+            </svg>
+        </div>
         <div class="pointer-events-none absolute inset-0 -z-10">
             <div class="absolute -top-24 -left-24 w-96 h-96 bg-savings-light rounded-full blur-3xl opacity-60"></div>
             <div class="absolute top-10 right-0 w-80 h-80 bg-accent-light rounded-full blur-3xl opacity-50"></div>
@@ -85,13 +82,13 @@
         <div class="max-w-4xl mx-auto">
             <span class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 text-xs font-semibold text-charcoal mb-6 shadow-sm">
                 <span class="w-1.5 h-1.5 rounded-full bg-savings animate-pulse"></span>
-                Live prices updated every few minutes
+                Live prices, updated every few minutes
             </span>
-            <h1 class="text-4xl md:text-6xl font-display font-bold text-charcoal tracking-tight mb-6 text-balance">Find the Best Price. Every Time.</h1>
-            <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">Compare prices across India's top retailers — Amazon, Flipkart, Croma, Reliance Digital & more — before you spend a single rupee.</p>
+            <h1 class="text-4xl md:text-6xl font-display font-bold text-charcoal tracking-tight mb-6 text-balance">Watch the price.<br class="hidden md:block"> Buy at the dip.</h1>
+            <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">PriceMint tracks every price move across Amazon, Flipkart, Croma, Reliance Digital, Tata CLiQ and Myntra — so you always know if today is the day to buy.</p>
 
             <div class="max-w-2xl mx-auto relative md:hidden mb-6" id="search-container-mobile">
-                <input type="text" id="mobile-search" placeholder="Search products..." aria-label="Search products" class="w-full pl-11 pr-12 py-4 bg-white shadow-xl rounded-2xl border border-gray-100 focus:border-charcoal focus:outline-none transition-all text-base">
+                <input type="text" id="mobile-search" placeholder="Search products..." aria-label="Search products" class="w-full pl-11 pr-12 py-4 bg-white shadow-xl rounded-2xl border border-gray-100 focus:border-savings focus:outline-none transition-all text-base search-glow">
                 <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <div id="search-autocomplete-mobile" class="autocomplete-dropdown hidden absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50 text-left"></div>
             </div>
@@ -112,7 +109,11 @@
     <!-- Stats Bar -->
     <section class="bg-charcoal py-14 px-4">
         <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8" id="stats-grid">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per stat:
+                 <div class="stat-card">
+                   <div class="stat-figure">₹42Cr+</div>
+                   <div class="stat-label">Saved by shoppers</div>
+                 </div> -->
         </div>
     </section>
 
@@ -125,7 +126,11 @@
             </div>
         </div>
         <div class="grid grid-cols-3 md:grid-cols-6 gap-4" id="categories-grid">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per category:
+                 <a href="search.html?category=smartphones" class="category-tile">
+                   <span class="icon-badge">...svg icon...</span>
+                   <span class="text-xs font-semibold">Smartphones</span>
+                 </a> -->
         </div>
     </section>
 
@@ -139,15 +144,22 @@
             <a href="search.html" class="text-sm font-semibold text-savings hover:underline shrink-0">View All</a>
         </div>
         <div class="scroll-x flex gap-4" id="trending-container">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per card: class="card product-card p-3" -->
         </div>
     </section>
+
+    <!-- Divider: the price line reappears between sections -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <svg class="divider-sparkline" data-observe viewBox="0 0 1200 40" preserveAspectRatio="none">
+            <path d="M0,20 C 100,5 200,35 300,20 S 500,5 600,20 S 800,35 900,20 S 1100,5 1200,20" fill="none" stroke="#E5E1D8" stroke-width="2"/>
+        </svg>
+    </div>
 
     <!-- Flash Deals Strip -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 overflow-hidden">
         <div class="flex items-center gap-2 mb-8">
             <h2 class="font-display text-2xl font-bold text-charcoal">⚡ Flash Deals</h2>
-            <span class="badge badge-red bg-warning-light text-warning">Ending soon</span>
+            <span class="badge badge-red bg-warning-light">Ending soon</span>
         </div>
         <div class="scroll-x flex gap-4" id="flash-deals-container">
             <!-- Rendered by JS -->
@@ -185,7 +197,12 @@
                 <p class="text-sm text-gray-500 max-w-md mx-auto">Three steps between you and the lowest verified price.</p>
             </div>
             <div class="flex flex-col md:flex-row gap-10 md:gap-8" id="how-it-works-container">
-                <!-- Rendered by JS -->
+                <!-- Rendered by JS. Suggested markup per step:
+                     <div class="step">
+                       <div class="step-index">01</div>
+                       <h3 class="text-lg font-semibold mb-2 mt-1">Search once</h3>
+                       <p class="text-sm text-gray-500">Look up any product and we check every retailer at once.</p>
+                     </div> -->
             </div>
         </div>
     </section>
@@ -197,7 +214,7 @@
             <p class="text-sm text-gray-500 max-w-md mx-auto">No noise, no fake urgency — just the facts you need to decide.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="trust-badges-container">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per badge: class="trust-card" -->
         </div>
     </section>
 
@@ -208,7 +225,7 @@
             <p class="text-sm text-white/50">Real feedback from people who found a better price here.</p>
         </div>
         <div class="scroll-x flex gap-4 px-4 sm:px-6 lg:px-8" id="testimonials-track">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per testimonial: class="testimonial-card" -->
         </div>
     </section>
 
@@ -217,7 +234,7 @@
         <p class="text-center text-xs uppercase tracking-widest text-gray-400 font-semibold mb-6">Tracking prices from these retailers & more</p>
         <div class="marquee">
             <div class="marquee-track flex items-center" id="brand-strip">
-                <!-- Rendered by JS -->
+                <!-- Rendered by JS. Duplicate the list once inside so the 28s marquee loop is seamless. Suggested markup per item: <span class="brand-chip">Amazon</span> -->
             </div>
         </div>
     </section>
@@ -229,8 +246,9 @@
             <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-3 relative">Never Miss a Price Drop</h2>
             <p class="text-sm text-white/60 mb-8 max-w-md mx-auto relative">Get a weekly digest of the best deals in the categories you care about.</p>
             <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative">
-                <input type="email" required placeholder="you@example.com" class="flex-1 px-4 py-3 rounded-xl border border-white/10 bg-white/10 text-white placeholder-white/40 focus:outline-none focus:border-savings text-sm">
-                <button type="submit" class="bg-savings text-white font-semibold px-6 py-3 rounded-xl hover:bg-green-600 transition-colors text-sm shrink-0 cursor-pointer">Subscribe</button>
+                <label for="newsletter-email" class="sr-only">Email address</label>
+                <input id="newsletter-email" type="email" required placeholder="you@example.com" class="flex-1 px-4 py-3 rounded-xl border border-white/10 bg-white/10 text-white placeholder-white/40 focus:outline-none text-sm">
+                <button type="submit" class="bg-savings text-white font-semibold px-6 py-3 rounded-xl hover:bg-emerald-600 transition-colors text-sm shrink-0 cursor-pointer">Subscribe</button>
             </form>
             <p class="text-[11px] text-white/30 mt-4 relative">No spam. Unsubscribe anytime.</p>
         </div>
@@ -242,7 +260,14 @@
             <h2 class="font-display text-2xl md:text-3xl font-bold text-charcoal mb-3">Frequently Asked Questions</h2>
         </div>
         <div id="faq-container">
-            <!-- Rendered by JS -->
+            <!-- Rendered by JS. Suggested markup per item so the accordion script below works untouched:
+                 <div class="faq-item">
+                   <button class="faq-question" type="button">
+                     <span>Is PriceMint free to use?</span>
+                     <svg class="chev w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                   </button>
+                   <div class="faq-answer"><p>Yes, completely free — no sign-up required to compare prices.</p></div>
+                 </div> -->
         </div>
     </section>
     </main>
@@ -328,12 +353,6 @@
             </a>
         </div>
     </nav>
-    <style>
-      @media (min-width: 640px) {
-        #mobile-nav { display: none; }
-      }
-      .has-mobile-nav { padding-bottom: 70px; }
-    </style>
 
     <!-- Cookie Banner -->
     <div id="cookie-banner" class="fixed bottom-16 sm:bottom-4 left-0 right-0 z-[60] px-4 hidden">
@@ -343,7 +362,7 @@
                 <p class="text-xs text-gray-400 leading-relaxed">We use cookies to enhance your browsing experience. By continuing, you agree to our <a href="privacy.html" class="underline text-gray-300 hover:text-white">Privacy Policy</a>.</p>
             </div>
             <div class="flex gap-2 shrink-0">
-                <button onclick="acceptCookies()" class="text-sm font-semibold bg-savings text-white px-5 py-2 rounded-xl hover:bg-green-600 transition-colors cursor-pointer">Accept</button>
+                <button onclick="acceptCookies()" class="text-sm font-semibold bg-savings text-white px-5 py-2 rounded-xl hover:bg-emerald-600 transition-colors cursor-pointer">Accept</button>
                 <button onclick="dismissCookies()" class="text-sm font-medium text-gray-400 px-3 py-2 rounded-xl hover:text-white transition-colors cursor-pointer">Dismiss</button>
             </div>
         </div>
@@ -352,6 +371,56 @@
     function acceptCookies(){localStorage.setItem('pm_cookies','accepted');document.getElementById('cookie-banner').classList.add('hidden')}
     function dismissCookies(){localStorage.setItem('pm_cookies','dismissed');document.getElementById('cookie-banner').classList.add('hidden')}
     if(!localStorage.getItem('pm_cookies')){setTimeout(()=>document.getElementById('cookie-banner').classList.remove('hidden'),2500)}
+    </script>
+
+    <!-- Interaction polish: header shadow on scroll, back-to-top visibility,
+         FAQ accordion (delegated, so it works even though #faq-container
+         is populated later by app.js), divider sparkline reveal, mobile
+         nav active state. None of this touches data.js / app.js hooks. -->
+    <script>
+    (function () {
+        const header = document.getElementById('site-header');
+        const backToTop = document.getElementById('back-to-top');
+
+        function onScroll() {
+            const scrolled = window.scrollY > 8;
+            header.classList.toggle('is-scrolled', scrolled);
+            backToTop.classList.toggle('is-visible', window.scrollY > 500);
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // FAQ accordion — delegated to the container so it works with
+        // items added dynamically by app.js later.
+        const faqContainer = document.getElementById('faq-container');
+        faqContainer.addEventListener('click', (e) => {
+            const question = e.target.closest('.faq-question');
+            if (!question) return;
+            const item = question.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            faqContainer.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+
+        // Reveal the divider sparkline once it enters view.
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        document.querySelectorAll('[data-observe]').forEach(el => observer.observe(el));
+
+        // Highlight the current page in the mobile nav.
+        const path = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('#mobile-nav a').forEach(a => {
+            if (a.getAttribute('href') === path) a.classList.add('is-active');
+        });
+    })();
     </script>
 
     <!-- Scripts -->
