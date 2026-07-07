@@ -150,7 +150,7 @@ const faqs = [
   { q: 'Which retailers do you compare?', a: 'We currently track Amazon.in, Flipkart, Croma, Reliance Digital, Tata CLiQ, and Myntra, with more being added regularly.' },
 ];
 
-const partnerBrands = ['Apple', 'Samsung', 'Sony', 'OnePlus', 'Dell', 'LG', 'JBL', 'Nike', 'Dyson', 'Lenovo', 'ASUS', 'Google'];
+const partnerBrands = ['Amazon', 'Flipkart', 'Croma', 'Reliance Digital', 'Tata CLiQ', 'Myntra', 'Vijay Sales', 'Ajio', 'Samsung', 'Apple', 'OnePlus', 'Sony'];
 
 // --- HELPER FUNCTIONS (operate on the live `products` array above) ---
 function getProductById(id) {

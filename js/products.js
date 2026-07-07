@@ -32,6 +32,10 @@ export function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function sanitizeSearchTerm(term) {
+  return String(term || '').replace(/[%_]/g, '').trim();
+}
+
 // ---------------------------------------------------------------------
 // PRODUCT CATALOG (Supabase `products` table)
 // ---------------------------------------------------------------------
@@ -101,7 +105,7 @@ export async function searchProducts(term, { category, limit = 40 } = {}) {
     .from('products')
     .select('*')
     .eq('is_active', true)
-    .or(`title.ilike.%${term}%,brand.ilike.%${term}%`)
+    .or(`title.ilike.%${sanitizeSearchTerm(term)}%,brand.ilike.%${sanitizeSearchTerm(term)}%`)
     .limit(limit);
 
   if (category) query = query.eq('category', category);

@@ -90,10 +90,15 @@
             <h1 class="text-4xl md:text-6xl font-display font-bold text-charcoal tracking-tight mb-6 text-balance">Find the Best Price. Every Time.</h1>
             <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">Compare prices across India's top retailers — Amazon, Flipkart, Croma, Reliance Digital & more — before you spend a single rupee.</p>
 
-            <div class="max-w-2xl mx-auto relative md:hidden mb-8" id="search-container-mobile"
-                <input type="text" id="mobile-search" placeholder="Search products..." class="w-full pl-11 pr-12 py-4 bg-white shadow-xl rounded-2xl border border-gray-100 focus:border-charcoal focus:outline-none transition-all text-base">
+            <div class="max-w-2xl mx-auto relative md:hidden mb-6" id="search-container-mobile">
+                <input type="text" id="mobile-search" placeholder="Search products..." aria-label="Search products" class="w-full pl-11 pr-12 py-4 bg-white shadow-xl rounded-2xl border border-gray-100 focus:border-charcoal focus:outline-none transition-all text-base">
                 <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <div id="search-autocomplete-mobile" class="autocomplete-dropdown hidden absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50 text-left"></div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
+                <a href="search.html" class="inline-flex items-center justify-center rounded-full bg-charcoal px-5 py-2.5 text-sm font-semibold text-white hover:bg-charcoal-light transition-colors">Compare now</a>
+                <a href="deals.html" class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-charcoal hover:border-savings hover:text-savings transition-colors">View deals</a>
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="trending-chips">
@@ -209,7 +214,7 @@
 
     <!-- Brand Strip (marquee) -->
     <section class="py-12 border-y border-gray-100 overflow-hidden">
-        <p class="text-center text-xs uppercase tracking-widest text-gray-400 font-semibold mb-6">Tracking prices from these brands & more</p>
+        <p class="text-center text-xs uppercase tracking-widest text-gray-400 font-semibold mb-6">Tracking prices from these retailers & more</p>
         <div class="marquee">
             <div class="marquee-track flex items-center" id="brand-strip">
                 <!-- Rendered by JS -->
