@@ -19,14 +19,35 @@ function formatPrice(price) {
 }
 
 // --- Utility: Generate product placeholder image (SVG data URL) ---
-function generateProductImage(name, gradientColors) {
-  const [c1, c2] = gradientColors;
-  const words = name.split(' ');
-  const initials = words.length > 1
-    ? (words[0][0] + words[words.length - 1][0]).toUpperCase()
-    : words[0].substring(0, 2).toUpperCase();
-  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs><rect width="400" height="400" fill="url(#g)" rx="24"/><text x="200" y="215" font-family="system-ui,sans-serif" font-size="96" font-weight="800" fill="white" text-anchor="middle" opacity="0.85">${initials}</text><text x="200" y="280" font-family="system-ui,sans-serif" font-size="18" font-weight="500" fill="white" text-anchor="middle" opacity="0.6">${name.length > 25 ? name.substring(0, 22) + '...' : name}</text></svg>`)}`;
+// Clean, flat, Amazon/Flipkart-style "image loading" card — a soft
+// neutral background with a single centered category glyph. Used only
+// when a product has no real photo (see REAL_PRODUCT_IMAGES below).
+function generateProductImage(name, categoryOrGradient) {
+  // Back-compat: some old call sites still pass a [c1, c2] gradient array.
+  const category = Array.isArray(categoryOrGradient) ? null : categoryOrGradient;
+  const icon = (category && categoryIcons[category]) || '📦';
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#F3F1EA"/><rect x="1" y="1" width="398" height="398" fill="none" stroke="#E6E1D6" stroke-width="2"/><text x="200" y="196" font-size="84" text-anchor="middle" dominant-baseline="central">${icon}</text><text x="200" y="330" font-family="Inter,system-ui,sans-serif" font-size="14" font-weight="500" fill="#B8B2A4" text-anchor="middle">Image coming soon</text></svg>`)}`;
 }
+
+// --- Real product photos, sourced from Wikimedia Commons (freely
+// licensed — CC BY / CC BY-SA / public domain), keyed by product id.
+// This is the fix for products that were showing gradient placeholders.
+// To add more: search "<product name> wikimedia commons", open the
+// exact File: page, and drop the filename into the URL below.
+const REAL_PRODUCT_IMAGES = {
+  'iphone-16-pro-max': 'https://commons.wikimedia.org/wiki/Special:FilePath/About%20iPhone%2016%20Pro%20Max%20Natural%20Titanium.jpg',
+  'samsung-s25-ultra': 'https://commons.wikimedia.org/wiki/Special:FilePath/Samsung%20Galaxy%20S25%20Ultra.jpg',
+  'oneplus-13': 'https://commons.wikimedia.org/wiki/Special:FilePath/OnePlus%2013%20Front.png',
+  'macbook-air-m4': 'https://commons.wikimedia.org/wiki/Special:FilePath/MacBook%20Air%20M4.svg',
+};
+
+// --- Category glyphs used by the placeholder card above ---
+const categoryIcons = {
+  smartphones: '📱', laptops: '💻', audio: '🎧', tvs: '📺', wearables: '⌚',
+  home_appliances: '🏠', fashion: '👟', gaming: '🎮', tablets: '📋',
+  beauty: '✨', kitchen: '🍳', smart_home: '🔊', books: '📚', watches: '🕐',
+  cameras: '📷', office: '🖨️', sports: '⚽',
+};
 
 // --- Category gradient palettes ---
 const categoryGradients = {
@@ -246,11 +267,18 @@ window.PriceMint = {
 // ============================================
 
 function mapRow(row) {
+  // Prefer a real photo if we have one mapped for this product id;
+  // otherwise fall back to a clean category-icon card instead of
+  // whatever placeholder is sitting in the DB row.
+  const realPhoto = REAL_PRODUCT_IMAGES[row.id];
+  const image = realPhoto || generateProductImage(row.title, row.category);
+
   return {
     ...row,
     currentLowestPrice: row.lowest_price,
     originalPrice: row.original_price,
-    thumbnail: row.thumbnail,
+    thumbnail: realPhoto || row.thumbnail || image,
+    image,
     cheapestPlatform: row.cheapest_platform,
     cheapestUrl: row.cheapest_url,
     reviewCount: row.review_count,
