@@ -1,3 +1,12 @@
+/**
+ * ⚠️ LEGACY / NOT USED IN PRODUCTION ⚠️
+ * The live site is a static frontend + Supabase (see supabase-schema.sql,
+ * js/products.js, js/auth.js, js/admin.js). This Express server and
+ * database.json were an earlier prototype backend and are not deployed
+ * (vercel.json no longer references this file). Kept only in case you
+ * want to build a real scraping/price-refresh pipeline later — the
+ * random-number price generator below is NOT real data.
+ */
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');

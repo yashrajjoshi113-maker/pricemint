@@ -3,194 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results | PriceMint</title>
+    <title>Search Products | PriceMint</title>
+    <meta name="description" content="Search and compare products across Amazon, Flipkart, Croma, Reliance Digital, Tata CLiQ and Myntra.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
-        @theme { --color-msp-orange: #ff7e00; --color-msp-blue: #0f4094; }
+        @theme {
+            --color-cream: #FAF8F5;
+            --color-charcoal: #1A1A1A;
+            --color-charcoal-light: #2D2D2D;
+            --color-savings: #1DB954;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Outfit', system-ui, sans-serif;
+        }
     </style>
-    <style>
-        body { font-family: 'Roboto', Arial, sans-serif; background-color: #f1f3f6; color: #212121; }
-        .nav-link { color: #212121; font-weight: 500; font-size: 14px; text-decoration: none; padding: 12px 16px; display: inline-block; }
-        .nav-link:hover { color: #ff7e00; border-bottom: 2px solid #ff7e00; }
-        .btn-orange { background-color: #ff7e00; color: white; padding: 8px 16px; border-radius: 2px; font-weight: 600; text-transform: uppercase; font-size: 13px; transition: background 0.2s; }
-        .btn-orange:hover { background-color: #e67100; }
-        .search-input { border: 1px solid #e0e0e0; border-right: none; border-radius: 4px 0 0 4px; padding: 10px 16px; font-size: 14px; outline: none; }
-        .search-input:focus { border-color: #ff7e00; }
-        .search-btn { background-color: #ff7e00; color: white; border-radius: 0 4px 4px 0; padding: 0 20px; font-weight: bold; }
-        .list-card { background: #fff; transition: box-shadow 0.2s; border: 1px solid #e0e0e0; border-radius: 2px; }
-        .list-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="bg-cream font-sans min-h-screen flex flex-col">
 
-    <!-- Top Bar -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-[1280px] mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-1 shrink-0">
-                <div class="w-8 h-8 bg-msp-blue flex items-center justify-center rounded text-white font-bold text-xl">P</div>
-                <span class="font-bold text-2xl text-msp-blue">Price<span class="text-msp-orange">Mint</span></span>
-            </a>
-            
-            <form id="search-form" class="flex flex-1 max-w-2xl mx-8 relative">
-                <input type="text" id="header-search" class="search-input w-full" placeholder="Search for mobile phones, laptops, electronics...">
-                <button type="submit" class="search-btn flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </button>
-            </form>
-
-            <div class="flex items-center gap-4 text-sm font-medium">
-                <a href="deals.html" class="hover:text-msp-orange">Daily Deals</a>
-                <div class="w-px h-6 bg-gray-300"></div>
-                <div class="auth-link">
-                    <a href="login.html" class="hover:text-msp-blue">Login / Signup</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Category Menu -->
-    <div class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-[1280px] mx-auto px-4 flex space-x-2">
-            <a href="search.html?category=smartphones" class="nav-link">Mobiles</a>
-            <a href="search.html?category=laptops" class="nav-link">Laptops</a>
-            <a href="search.html?category=audio" class="nav-link">Audio</a>
-            <a href="search.html" class="nav-link">TV & Appliances</a>
-        </div>
-    </div>
-
-    <div class="max-w-[1280px] mx-auto px-4 py-6 flex flex-col md:flex-row gap-6">
-        
-        <!-- Sidebar Filters -->
-        <div class="w-full md:w-64 shrink-0">
-            <div class="bg-white p-4 border border-gray-200 rounded-sm">
-                <h3 class="font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">Filters</h3>
-                
-                <!-- Category Filter -->
-                <div class="mb-6">
-                    <h4 class="text-sm font-bold text-gray-700 mb-2">Category</h4>
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2 text-sm text-gray-600"><input type="radio" name="cat" value="" checked> All</label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600"><input type="radio" name="cat" value="smartphones"> Smartphones</label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600"><input type="radio" name="cat" value="laptops"> Laptops</label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600"><input type="radio" name="cat" value="audio"> Audio</label>
+    <!-- Header -->
+    <header id="site-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
+                    <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <span class="text-white font-display font-bold text-base">P</span>
                     </div>
-                </div>
-
-                <!-- Price Filter -->
-                <div>
-                    <h4 class="text-sm font-bold text-gray-700 mb-2">Price Range</h4>
-                    <select id="price-sort" class="w-full border border-gray-300 p-2 rounded text-sm bg-white outline-none">
-                        <option value="">Default Relevance</option>
-                        <option value="low">Price: Low to High</option>
-                        <option value="high">Price: High to Low</option>
-                    </select>
-                </div>
+                    <span class="font-display font-bold text-xl text-charcoal tracking-tight">Price<span class="text-savings">Mint</span></span>
+                </a>
+                <form id="search-form" class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+                    <input type="text" id="header-search" placeholder="Search products, brands, categories..."
+                           class="w-full pl-11 pr-4 py-2.5 bg-gray-100 rounded-xl border border-transparent focus:border-charcoal focus:bg-white focus:outline-none transition-all text-sm"
+                           autocomplete="off">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </form>
+                <nav class="flex items-center gap-4 sm:gap-6">
+                    <a href="deals.html" class="text-sm text-gray-500 hover:text-charcoal transition-colors hidden sm:block font-medium">Deals</a>
+                    <div class="auth-link">
+                        <a href="login.html" class="text-sm font-semibold bg-charcoal text-white px-4 py-2 rounded-xl hover:bg-charcoal-light transition-colors">Sign In</a>
+                    </div>
+                </nav>
             </div>
         </div>
+    </header>
 
-        <!-- Main Results -->
-        <div class="flex-1">
-            <div class="bg-white p-4 border border-gray-200 rounded-sm mb-4 flex items-center justify-between">
-                <h1 class="text-lg font-bold text-gray-800" id="result-title">Search Results</h1>
-                <span class="text-sm text-gray-500" id="result-count">0 items found</span>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div>
+                <h1 class="text-xl font-display font-bold text-charcoal" id="result-title">All Products</h1>
+                <p class="text-sm text-gray-500" id="result-count">Loading...</p>
             </div>
+            <select id="price-sort" class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-charcoal">
+                <option value="">Sort: Relevance</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+                <option value="discount">Biggest Discount</option>
+            </select>
+        </div>
 
-            <div id="loading" class="py-10 text-center text-gray-500">Loading products...</div>
-            
-            <div id="results-list" class="flex flex-col gap-4 hidden">
-                <!-- List Items Injected by JS -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Filters -->
+            <aside class="w-full lg:w-64 shrink-0">
+                <div class="bg-white rounded-2xl border border-gray-100 p-5 lg:sticky lg:top-24">
+                    <h3 class="font-display font-bold text-sm text-charcoal mb-4">Category</h3>
+                    <div id="category-filters" class="space-y-2 text-sm text-gray-600"></div>
+                </div>
+            </aside>
+
+            <!-- Results -->
+            <div class="flex-1">
+                <div id="loading" class="py-20 flex flex-col items-center justify-center">
+                    <div class="w-10 h-10 border-4 border-gray-200 border-t-charcoal rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm text-gray-500 font-medium">Searching products...</p>
+                </div>
+
+                <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center bg-white rounded-2xl border border-gray-100">
+                    <p class="text-lg font-semibold text-gray-700 mb-1">No products found</p>
+                    <p class="text-sm text-gray-500">Try a different search term or clear filters.</p>
+                </div>
+
+                <div id="results-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-5 hidden"></div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Scripts -->
+    <footer class="bg-charcoal text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-sm text-gray-400">
+            &copy; 2026 PriceMint. All rights reserved.
+        </div>
+    </footer>
+
     <script type="module">
         import { updateAuthUI } from './js/auth.js';
+        import { getProducts, searchProducts, formatPrice, escapeHtml } from './js/products.js';
+
         document.addEventListener('DOMContentLoaded', updateAuthUI);
-    </script>
-    <script>
-        const formatPrice = (p) => '₹' + p.toLocaleString('en-IN');
-        let allProducts = [];
+
+        const CATEGORIES = [
+            { id: '', name: 'All Categories' },
+            { id: 'smartphones', name: 'Smartphones' },
+            { id: 'laptops', name: 'Laptops' },
+            { id: 'audio', name: 'Audio' },
+            { id: 'tvs', name: 'TVs & Displays' },
+            { id: 'wearables', name: 'Wearables' },
+            { id: 'home_appliances', name: 'Home Appliances' },
+            { id: 'fashion', name: 'Fashion' },
+            { id: 'gaming', name: 'Gaming' },
+            { id: 'tablets', name: 'Tablets' },
+            { id: 'kitchen', name: 'Kitchen' },
+        ];
+
+        let allResults = [];
+
+        function renderCategoryFilters(activeCategory) {
+            const container = document.getElementById('category-filters');
+            container.innerHTML = CATEGORIES.map(c => `
+                <label class="flex items-center gap-2 cursor-pointer hover:text-charcoal">
+                    <input type="radio" name="cat" value="${c.id}" ${c.id === (activeCategory || '') ? 'checked' : ''} class="accent-charcoal">
+                    ${c.name}
+                </label>
+            `).join('');
+            container.querySelectorAll('input[name="cat"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    window.location.href = val ? `search.html?category=${val}` : 'search.html';
+                });
+            });
+        }
+
+        function renderCard(p) {
+            const thumb = p.thumbnail || `https://via.placeholder.com/400x400.png?text=${encodeURIComponent(p.title)}`;
+            return `
+            <a href="product.html?id=${encodeURIComponent(p.id)}" class="bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover group block">
+                <div class="aspect-square bg-cream-dark overflow-hidden p-4 flex items-center justify-center">
+                    <img src="${thumb}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-gray-400 font-medium mb-1">${escapeHtml(p.brand || 'Brand')}</p>
+                    <h3 class="text-sm font-semibold text-charcoal line-clamp-2 mb-2 leading-snug">${escapeHtml(p.title)}</h3>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-lg font-bold text-charcoal">${formatPrice(p.lowest_price)}</span>
+                        ${p.original_price > p.lowest_price ? `<span class="text-xs text-gray-400 line-through">${formatPrice(p.original_price)}</span>` : ''}
+                    </div>
+                    ${p.discount > 0 ? `<span class="inline-block mt-2 bg-[#E8F8EE] text-[#15803D] px-2 py-0.5 rounded-full text-xs font-semibold">${p.discount}% off</span>` : ''}
+                </div>
+            </a>`;
+        }
+
+        function renderResults(list) {
+            const grid = document.getElementById('results-grid');
+            const empty = document.getElementById('empty-state');
+            document.getElementById('result-count').textContent = `${list.length} product${list.length === 1 ? '' : 's'} found`;
+
+            if (!list.length) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+                empty.classList.add('flex');
+                return;
+            }
+            empty.classList.add('hidden');
+            grid.classList.remove('hidden');
+            grid.innerHTML = list.map(renderCard).join('');
+        }
+
+        document.getElementById('price-sort').addEventListener('change', (e) => {
+            const sorted = [...allResults];
+            if (e.target.value === 'low') sorted.sort((a, b) => a.lowest_price - b.lowest_price);
+            if (e.target.value === 'high') sorted.sort((a, b) => b.lowest_price - a.lowest_price);
+            if (e.target.value === 'discount') sorted.sort((a, b) => (b.discount || 0) - (a.discount || 0));
+            renderResults(sorted);
+        });
 
         document.getElementById('search-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const q = document.getElementById('header-search').value.trim();
-            if(q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+            window.location.href = q ? `search.html?q=${encodeURIComponent(q)}` : 'search.html';
         });
 
-        async function fetchResults() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const q = urlParams.get('q');
-            const category = urlParams.get('category');
-            
+        async function run() {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            const category = params.get('category');
+
+            renderCategoryFilters(category);
             if (q) {
                 document.getElementById('header-search').value = q;
                 document.getElementById('result-title').textContent = `Results for "${q}"`;
             } else if (category) {
-                document.getElementById('result-title').textContent = `${category.charAt(0).toUpperCase() + category.slice(1)}`;
-                document.querySelector(`input[name="cat"][value="${category}"]`).checked = true;
+                const label = CATEGORIES.find(c => c.id === category)?.name || category;
+                document.getElementById('result-title').textContent = label;
             }
 
-            try {
-                const res = await fetch(`/api/products?${urlParams.toString()}`);
-                allProducts = await res.json();
-                renderResults(allProducts);
-            } catch (e) {
-                document.getElementById('loading').innerHTML = '<span class="text-red-500">Failed to fetch results.</span>';
-            }
-        }
+            const { data } = q
+                ? await searchProducts(q, { category })
+                : await getProducts({ category, limit: 100 });
 
-        function renderResults(products) {
+            allResults = data;
             document.getElementById('loading').classList.add('hidden');
-            const list = document.getElementById('results-list');
-            list.classList.remove('hidden');
-            document.getElementById('result-count').textContent = `${products.length} items found`;
-            
-            if (products.length === 0) {
-                list.innerHTML = '<div class="p-8 text-center bg-white border border-gray-200">No products found.</div>';
-                return;
-            }
-
-            list.innerHTML = products.map(p => `
-                <div class="list-card p-4 flex flex-col sm:flex-row gap-6 cursor-pointer" onclick="window.location.href='product.html?id=${p.id}'">
-                    <div class="w-full sm:w-48 h-40 flex items-center justify-center shrink-0">
-                        <img src="${p.image}" class="max-h-full max-w-full object-contain">
-                    </div>
-                    <div class="flex-1 flex flex-col">
-                        <h3 class="text-lg font-bold text-msp-blue hover:underline mb-2">${p.title}</h3>
-                        <div class="text-xs text-gray-500 mb-4 bg-gray-100 p-2 rounded max-w-fit">
-                            ${p.specs ? Object.entries(p.specs).map(([k,v]) => `${v}`).join(' | ') : 'Key Features Available'}
-                        </div>
-                        <div class="mt-auto flex items-center justify-between">
-                            <div>
-                                <span class="text-2xl font-bold text-gray-900">${formatPrice(p.lowestPrice)}</span>
-                                <span class="text-sm text-gray-400 line-through ml-2">${formatPrice(p.originalPrice)}</span>
-                                ${p.discount > 0 ? `<span class="text-sm text-green-600 font-bold ml-2">${p.discount}% Off</span>` : ''}
-                            </div>
-                            <button class="btn-orange">View Details</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+            renderResults(allResults);
         }
 
-        // Filtering
-        document.querySelectorAll('input[name="cat"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const val = e.target.value;
-                if(val) window.location.href = `search.html?category=${val}`;
-                else window.location.href = `search.html`;
-            });
-        });
-
-        document.getElementById('price-sort').addEventListener('change', (e) => {
-            const sorted = [...allProducts];
-            if(e.target.value === 'low') sorted.sort((a,b) => a.lowestPrice - b.lowestPrice);
-            if(e.target.value === 'high') sorted.sort((a,b) => b.lowestPrice - a.lowestPrice);
-            renderResults(sorted);
-        });
-
-        fetchResults();
+        run();
     </script>
 </body>
 </html>

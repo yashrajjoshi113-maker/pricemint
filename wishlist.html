@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Wishlist & Alerts | PriceMint</title>
+    <title>My Price Alerts | PriceMint</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -32,7 +32,7 @@
 
     <main class="flex-grow max-w-5xl mx-auto px-4 py-12 w-full">
         <div class="mb-8">
-            <h1 class="text-3xl font-display font-bold text-gray-900 mb-2">My Wishlist & Alerts</h1>
+            <h1 class="text-3xl font-display font-bold text-gray-900 mb-2">My Price Alerts</h1>
             <p class="text-gray-500">Track products and get notified when the price drops below your target.</p>
         </div>
 
@@ -44,20 +44,85 @@
 
         <div id="empty-state" class="hidden text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
             <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">🎯</div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Your wishlist is empty</h3>
-            <p class="text-gray-500 mb-6">Search for products and set a price alert to start saving.</p>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">No price alerts yet</h3>
+            <p class="text-gray-500 mb-6">Open any product and tap "Set a price alert" to start tracking.</p>
             <a href="search.html" class="bg-charcoal text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-colors inline-block">Explore Products</a>
+        </div>
+
+        <div id="error-state" class="hidden text-center py-20 bg-white rounded-3xl border border-gray-100">
+            <p class="text-red-500 font-semibold">Couldn't load your alerts. Please refresh.</p>
         </div>
     </main>
 
+    <footer class="text-center text-xs text-gray-400 py-8">&copy; 2026 PriceMint. All rights reserved.</footer>
+
     <script type="module">
         import { checkSession, signOut } from './js/auth.js';
-        const formatPrice = (p) => '₹' + p.toLocaleString('en-IN');
+        import { getMyPriceAlerts, deletePriceAlert, formatPrice, escapeHtml } from './js/products.js';
 
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await signOut();
             window.location.href = 'index.html';
         });
+
+        function renderAlertCard(a) {
+            const p = a.product;
+            const thumb = p.thumbnail || `https://via.placeholder.com/200?text=${encodeURIComponent(p.title[0] || 'P')}`;
+            const isHit = p.lowest_price <= a.target_price;
+            return `
+            <div class="bg-white p-6 rounded-2xl border ${isHit ? 'border-green-200 shadow-green-500/10' : 'border-gray-200'} shadow-sm flex flex-col sm:flex-row gap-6 relative">
+                <button data-remove="${a.id}" class="remove-alert-btn absolute top-4 right-4 text-gray-400 hover:text-red-500" title="Remove alert">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+                <img src="${thumb}" class="w-24 h-24 object-contain bg-gray-50 rounded-xl p-2 shrink-0">
+                <div class="flex-1 min-w-0">
+                    <a href="product.html?id=${encodeURIComponent(p.id)}" class="font-bold text-gray-900 leading-tight hover:text-blue-600 line-clamp-2 mb-2 block">${escapeHtml(p.title)}</a>
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Current Price</p>
+                            <p class="font-bold ${isHit ? 'text-green-600' : 'text-gray-900'}">${formatPrice(p.lowest_price)}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Target Price</p>
+                            <p class="font-bold text-gray-900">${formatPrice(a.target_price)}</p>
+                        </div>
+                    </div>
+                    ${isHit
+                        ? `<a href="${p.cheapest_url || '#'}" target="_blank" rel="noopener noreferrer" class="w-full block text-center bg-green-500 text-white font-bold py-2 rounded-lg hover:bg-green-600 transition-colors shadow-sm">Target Reached! Buy Now</a>`
+                        : `<div class="w-full text-center bg-gray-100 text-gray-500 font-semibold py-2 rounded-lg text-sm border border-gray-200">Tracking...</div>`
+                    }
+                </div>
+            </div>`;
+        }
+
+        async function loadAlerts() {
+            const loading = document.getElementById('loading');
+            const container = document.getElementById('wishlist-container');
+            const empty = document.getElementById('empty-state');
+            const errorState = document.getElementById('error-state');
+
+            const { data: alerts, error } = await getMyPriceAlerts();
+            loading.classList.add('hidden');
+
+            if (error) {
+                errorState.classList.remove('hidden');
+                return;
+            }
+            if (!alerts.length) {
+                empty.classList.remove('hidden');
+                return;
+            }
+            container.classList.remove('hidden');
+            container.innerHTML = alerts.map(renderAlertCard).join('');
+
+            container.querySelectorAll('.remove-alert-btn').forEach((btn) => {
+                btn.addEventListener('click', async () => {
+                    if (!confirm('Remove this price alert?')) return;
+                    await deletePriceAlert(btn.dataset.remove);
+                    loadAlerts();
+                });
+            });
+        }
 
         document.addEventListener('DOMContentLoaded', async () => {
             const session = await checkSession();
@@ -65,62 +130,7 @@
                 window.location.href = 'login.html';
                 return;
             }
-
-            const userId = session.user.id;
-            
-            try {
-                const res = await fetch(`/api/wishlist/${userId}`);
-                const alerts = await res.json();
-                
-                document.getElementById('loading').classList.add('hidden');
-                
-                if(alerts.length === 0) {
-                    document.getElementById('empty-state').classList.remove('hidden');
-                } else {
-                    const container = document.getElementById('wishlist-container');
-                    container.classList.remove('hidden');
-                    container.innerHTML = alerts.map(a => {
-                        const p = a.product;
-                        const isHit = p.lowestPrice <= a.target_price;
-                        return `
-                        <div class="bg-white p-6 rounded-2xl border ${isHit ? 'border-green-200 shadow-green-500/10' : 'border-gray-200'} shadow-sm flex flex-col sm:flex-row gap-6 relative">
-                            <button onclick="removeAlert('${a.id}')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500" title="Remove Alert">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
-                            <img src="${p.image}" class="w-24 h-24 object-contain bg-gray-50 rounded-xl p-2 shrink-0">
-                            <div class="flex-1">
-                                <a href="product.html?id=${p.id}" class="font-bold text-gray-900 leading-tight hover:text-blue-600 line-clamp-2 mb-2">${p.title}</a>
-                                <div class="grid grid-cols-2 gap-4 text-sm mb-4">
-                                    <div>
-                                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Current Price</p>
-                                        <p class="font-bold ${isHit ? 'text-green-600' : 'text-gray-900'}">${formatPrice(p.lowestPrice)}</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Target Price</p>
-                                        <p class="font-bold text-gray-900">${formatPrice(a.target_price)}</p>
-                                    </div>
-                                </div>
-                                ${isHit ? 
-                                    `<a href="${p.cheapestUrl}" target="_blank" class="w-full block text-center bg-green-500 text-white font-bold py-2 rounded-lg hover:bg-green-600 transition-colors shadow-sm">Target Reached! Buy Now</a>` : 
-                                    `<div class="w-full text-center bg-gray-100 text-gray-500 font-semibold py-2 rounded-lg text-sm border border-gray-200">Tracking...</div>`
-                                }
-                            </div>
-                        </div>`;
-                    }).join('');
-                }
-            } catch (e) {
-                console.error(e);
-                document.getElementById('loading').innerHTML = '<span class="text-red-500">Failed to load alerts.</span>';
-            }
-
-            // Global removal function attached to window
-            window.removeAlert = async (alertId) => {
-                if(!confirm("Remove this price alert?")) return;
-                try {
-                    await fetch(`/api/wishlist/${alertId}`, { method: 'DELETE' });
-                    location.reload();
-                } catch(e) { alert("Failed to remove"); }
-            };
+            loadAlerts();
         });
     </script>
 </body>

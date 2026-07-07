@@ -3,238 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search & Compare | PriceMint</title>
+    <title>Product | PriceMint — India's Smartest Price Comparison</title>
+    <meta name="description" content="Compare live prices across India's top retailers, track price history, and set alerts.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A1A'/><text x='50' y='68' font-size='60' font-weight='bold' text-anchor='middle' fill='white' font-family='system-ui'>P</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style type="text/tailwindcss">
-        @theme { --color-msp-orange: #ff7e00; --color-msp-blue: #0f4094; }
+        @theme {
+            --color-cream: #FAF8F5;
+            --color-cream-dark: #F0EDE8;
+            --color-charcoal: #1A1A1A;
+            --color-charcoal-light: #2D2D2D;
+            --color-savings: #1DB954;
+            --color-savings-light: #E8F8EE;
+            --color-warning: #EF4444;
+            --color-accent: #FF6B35;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-display: 'Outfit', system-ui, sans-serif;
+        }
     </style>
-    <style>
-        body { font-family: 'Roboto', Arial, sans-serif; background-color: #f1f3f6; color: #212121; }
-        .nav-link { color: #212121; font-weight: 500; font-size: 14px; text-decoration: none; padding: 12px 16px; display: inline-block; }
-        .nav-link:hover { color: #ff7e00; border-bottom: 2px solid #ff7e00; }
-        .btn-orange { background-color: #ff7e00; color: white; padding: 8px 24px; border-radius: 2px; font-weight: 600; text-transform: uppercase; font-size: 14px; transition: background 0.2s; }
-        .btn-orange:hover { background-color: #e67100; }
-        .search-input { border: 1px solid #e0e0e0; border-right: none; border-radius: 4px 0 0 4px; padding: 10px 16px; font-size: 14px; outline: none; }
-        .search-input:focus { border-color: #ff7e00; }
-        .search-btn { background-color: #ff7e00; color: white; border-radius: 0 4px 4px 0; padding: 0 20px; font-weight: bold; }
-        .spec-table td { border-bottom: 1px solid #e0e0e0; padding: 12px 16px; font-size: 14px; }
-        .spec-table tr:last-child td { border-bottom: none; }
-        .store-logo { max-width: 100px; max-height: 30px; object-fit: contain; }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="bg-cream font-sans">
 
-    <!-- Top Bar -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="max-w-[1280px] mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-1 shrink-0">
-                <div class="w-8 h-8 bg-msp-blue flex items-center justify-center rounded text-white font-bold text-xl">P</div>
-                <span class="font-bold text-2xl text-msp-blue">Price<span class="text-msp-orange">Mint</span></span>
-            </a>
-            
-            <form id="search-form" class="flex flex-1 max-w-2xl mx-8 relative">
-                <input type="text" id="header-search" class="search-input w-full" placeholder="Search for mobile phones, laptops, electronics...">
-                <button type="submit" class="search-btn flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </button>
-            </form>
-
-            <div class="flex items-center gap-4 text-sm font-medium">
-                <a href="deals.html" class="flex items-center gap-1 hover:text-msp-orange">
-                    Daily Deals
+    <!-- Header -->
+    <header id="site-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5 group shrink-0">
+                    <div class="w-9 h-9 bg-charcoal rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <span class="text-white font-display font-bold text-base">P</span>
+                    </div>
+                    <span class="font-display font-bold text-xl text-charcoal tracking-tight">Price<span class="text-savings">Mint</span></span>
                 </a>
-                <div class="w-px h-6 bg-gray-300"></div>
-                <div class="auth-link">
-                    <a href="login.html" class="flex items-center gap-1 hover:text-msp-blue">Login / Signup</a>
-                </div>
+                <form id="search-form" class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+                    <input type="text" id="header-search" placeholder="Search products, brands, categories..."
+                           class="w-full pl-11 pr-4 py-2.5 bg-gray-100 rounded-xl border border-transparent focus:border-charcoal focus:bg-white focus:outline-none transition-all text-sm"
+                           autocomplete="off">
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </form>
+                <nav class="flex items-center gap-4 sm:gap-6">
+                    <a href="deals.html" class="text-sm text-gray-500 hover:text-charcoal transition-colors hidden sm:block font-medium">Deals</a>
+                    <a href="wishlist.html" class="text-gray-500 hover:text-charcoal transition-colors p-1" title="Price Alerts">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </a>
+                    <div class="auth-link">
+                        <a href="login.html" class="text-sm font-semibold bg-charcoal text-white px-4 py-2 rounded-xl hover:bg-charcoal-light transition-colors">Sign In</a>
+                    </div>
+                </nav>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Category Menu -->
-    <div class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-[1280px] mx-auto px-4 flex space-x-2">
-            <a href="search.html?category=smartphones" class="nav-link">Mobiles</a>
-            <a href="search.html?category=laptops" class="nav-link">Laptops</a>
-            <a href="search.html?category=audio" class="nav-link">Audio</a>
-            <a href="search.html" class="nav-link">TV & Appliances</a>
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div id="loading" class="py-24 flex flex-col items-center justify-center">
+            <div class="w-10 h-10 border-4 border-gray-200 border-t-charcoal rounded-full animate-spin mb-4"></div>
+            <p class="text-sm text-gray-500 font-medium">Fetching product details...</p>
         </div>
-    </div>
 
-    <div class="max-w-[1280px] mx-auto px-4 py-6">
-        <div id="loading" class="py-20 text-center text-gray-500 text-lg font-medium">Fetching details...</div>
-        
+        <div id="error-state" class="hidden py-24 flex-col items-center justify-center text-center">
+            <p class="text-lg font-semibold text-gray-800 mb-1">Couldn't find this product</p>
+            <p class="text-sm text-gray-500 mb-6">It may have been removed, or the link is incorrect.</p>
+            <a href="search.html" class="bg-charcoal text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-charcoal-light transition-colors">Browse products</a>
+        </div>
+
         <div id="content" class="hidden">
             <!-- Breadcrumbs -->
-            <div class="text-sm text-gray-500 mb-4">
-                <a href="index.html" class="hover:text-msp-blue hover:underline">Home</a> &gt; <span id="bc-title" class="text-gray-900">Product</span>
+            <div class="text-sm text-gray-500 mb-6">
+                <a href="index.html" class="hover:text-charcoal">Home</a>
+                <span class="mx-1.5">/</span>
+                <a href="search.html" id="bc-category" class="hover:text-charcoal">Category</a>
+                <span class="mx-1.5">/</span>
+                <span id="bc-title" class="text-charcoal font-medium">Product</span>
             </div>
-            
-            <div class="flex flex-col lg:flex-row gap-6">
-                <!-- Left Column: Image -->
-                <div class="lg:w-[350px] shrink-0">
-                    <div class="bg-white border border-gray-200 p-6 flex flex-col items-center justify-center relative sticky top-6">
-                        <button id="alert-btn" class="absolute top-4 right-4 bg-white border border-gray-300 p-2 rounded shadow-sm hover:text-msp-orange text-gray-500 flex items-center gap-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                            <span class="text-xs font-bold">Set Alert</span>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- Left: Image + wishlist -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-2xl border border-gray-100 p-8 flex items-center justify-center relative sticky top-24">
+                        <button id="wishlist-btn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:scale-110 transition-transform shadow-sm" aria-label="Toggle wishlist">
+                            <svg id="wishlist-icon" class="w-4.5 h-4.5 text-[#DC2626]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                         </button>
-                        <img id="p-image" src="" alt="Product" class="max-w-full h-auto max-h-80 object-contain mb-4">
-                        <div id="p-title" class="text-lg font-bold text-gray-900 text-center leading-snug"></div>
+                        <img id="p-image" src="" alt="Product" class="max-w-full h-auto max-h-80 object-contain">
                     </div>
                 </div>
 
-                <!-- Right Column: Details & Stores -->
-                <div class="flex-1">
-                    <!-- Price Banner -->
-                    <div class="bg-white border border-gray-200 mb-4 overflow-hidden">
-                        <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
-                            <h2 class="text-sm font-bold uppercase text-gray-700">Compare Prices</h2>
-                        </div>
-                        <div class="p-4 flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 bg-[#f9fbff]">
+                <!-- Right: Details -->
+                <div class="lg:col-span-3">
+                    <p id="p-brand" class="text-sm text-gray-400 font-medium mb-1"></p>
+                    <h1 id="p-title" class="text-2xl font-display font-bold text-charcoal leading-snug mb-2"></h1>
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="text-[#F59E0B] text-sm" id="p-stars"></span>
+                        <span class="text-sm text-gray-500"><span id="p-rating">4.5</span> (<span id="p-review-count">0</span> reviews)</span>
+                    </div>
+
+                    <!-- Best price card -->
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden mb-4">
+                        <div class="p-5 flex flex-wrap items-center justify-between gap-4 bg-savings-light/40 border-b border-gray-100">
                             <div>
-                                <span class="text-sm text-gray-600 block mb-1">Best Price</span>
-                                <span id="p-lowest-price" class="text-3xl font-bold text-[#d0021b]">₹0</span>
-                                <span id="p-original-price" class="text-sm text-gray-400 line-through ml-2">₹0</span>
+                                <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Best price at <span id="p-cheapest-platform">a store</span></p>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="p-lowest-price" class="text-3xl font-display font-black text-charcoal">₹0</span>
+                                    <span id="p-original-price" class="text-sm text-gray-400 line-through"></span>
+                                    <span id="p-discount-badge" class="badge badge-green bg-[#E8F8EE] text-[#15803D] px-2 py-0.5 rounded-full text-xs font-semibold hidden"></span>
+                                </div>
                             </div>
-                            <div class="text-center">
-                                <span class="text-xs text-gray-500 block mb-1">Available at</span>
-                                <img id="p-cheapest-logo" src="" class="h-6 object-contain mx-auto">
-                            </div>
-                            <a id="p-buy-btn" href="#" target="_blank" class="btn-orange text-lg px-8 py-3">Go To Store</a>
+                            <a id="p-buy-btn" href="#" target="_blank" rel="noopener noreferrer sponsored" class="bg-charcoal text-white font-bold px-6 py-3 rounded-xl hover:bg-charcoal-light transition-colors shadow-sm">Go to Store</a>
                         </div>
-                        
-                        <!-- Other stores -->
-                        <div id="other-stores" class="divide-y divide-gray-200">
-                            <!-- Injected by JS -->
+                        <div id="other-stores" class="divide-y divide-gray-100"></div>
+                    </div>
+
+                    <!-- Price alert -->
+                    <button id="alert-btn" class="w-full sm:w-auto bg-white border border-gray-200 hover:border-charcoal text-sm font-semibold text-charcoal px-5 py-3 rounded-xl mb-8 flex items-center justify-center gap-2 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        Set a price alert
+                    </button>
+
+                    <!-- AI Summary -->
+                    <div id="ai-summary-section" class="hidden bg-white rounded-2xl border border-gray-100 p-6 mb-6">
+                        <h2 class="font-display font-bold text-charcoal mb-4 flex items-center gap-2">🤖 AI Review Summary</h2>
+                        <p id="p-recommendation" class="text-sm text-gray-700 mb-5 leading-relaxed"></p>
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wide text-savings mb-2">Pros</p>
+                                <ul id="p-pros" class="text-sm text-gray-600 space-y-1.5"></ul>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wide text-warning mb-2">Cons</p>
+                                <ul id="p-cons" class="text-sm text-gray-600 space-y-1.5"></ul>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Specs -->
-                    <div class="bg-white border border-gray-200 mb-4">
-                        <div class="bg-gray-100 px-4 py-3 border-b border-gray-200">
-                            <h2 class="text-sm font-bold uppercase text-gray-700">Key Specifications</h2>
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden mb-6">
+                        <div class="px-5 py-3.5 border-b border-gray-100">
+                            <h2 class="text-sm font-bold uppercase text-gray-500 tracking-wide">Key Specifications</h2>
                         </div>
-                        <table class="w-full spec-table" id="p-specs">
-                            <!-- Injected -->
-                        </table>
+                        <table class="w-full spec-table text-sm" id="p-specs"></table>
                     </div>
 
                     <!-- Price History -->
-                    <div class="bg-white border border-gray-200 p-4">
-                        <h2 class="text-sm font-bold uppercase text-gray-700 mb-4">Price History (30 Days)</h2>
+                    <div class="bg-white rounded-2xl border border-gray-100 p-5">
+                        <h2 class="text-sm font-bold uppercase text-gray-500 tracking-wide mb-4">Price History (30 Days)</h2>
                         <div class="w-full h-64"><canvas id="priceChart"></canvas></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Scripts -->
+    <footer class="bg-charcoal text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center text-sm text-gray-400">
+            &copy; 2026 PriceMint. All rights reserved.
+        </div>
+    </footer>
+
     <script type="module">
-        import { checkSession, updateAuthUI } from './js/auth.js';
+        import { updateAuthUI, checkSession } from './js/auth.js';
+        import { getProductById, setPriceAlert, formatPrice, escapeHtml, getWishlist, isInWishlist, toggleWishlist, addRecentlyViewed } from './js/products.js';
+
         document.addEventListener('DOMContentLoaded', updateAuthUI);
-        window.checkSession = checkSession;
-    </script>
-    <script>
-        const formatPrice = (price) => '₹' + price.toLocaleString('en-IN');
-        
+
         document.getElementById('search-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const q = document.getElementById('header-search').value.trim();
-            if(q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
+            if (q) window.location.href = `search.html?q=${encodeURIComponent(q)}`;
         });
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        function starString(rating) {
+            const full = Math.floor(rating || 0);
+            const half = (rating || 0) % 1 >= 0.3 ? 1 : 0;
+            return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(Math.max(0, 5 - full - half));
+        }
+
+        let currentProduct = null;
+
+        function refreshWishlistIcon() {
+            const btn = document.getElementById('wishlist-icon');
+            const wished = currentProduct && isInWishlist(currentProduct.id);
+            btn.setAttribute('fill', wished ? '#DC2626' : 'none');
+        }
+
+        document.getElementById('wishlist-btn').addEventListener('click', () => {
+            if (!currentProduct) return;
+            toggleWishlist(currentProduct.id);
+            refreshWishlistIcon();
+        });
+
+        async function loadProduct() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
+            const loading = document.getElementById('loading');
+            const errorState = document.getElementById('error-state');
+            const content = document.getElementById('content');
+
             if (!productId) {
-                document.getElementById('loading').innerHTML = '<span class="text-red-500 font-bold">No product ID specified.</span>';
+                loading.classList.add('hidden');
+                errorState.classList.remove('hidden');
+                errorState.classList.add('flex');
                 return;
             }
 
-            let productData = null;
+            const { data: p, error } = await getProductById(productId);
+            loading.classList.add('hidden');
 
-            try {
-                const res = await fetch(`/api/products/${productId}`);
-                if (!res.ok) throw new Error('Product not found');
-                productData = await res.json();
-
-                // Bind Data
-                document.getElementById('bc-title').textContent = productData.title;
-                document.getElementById('p-title').textContent = productData.title;
-                document.getElementById('p-image').src = productData.image;
-                document.getElementById('p-lowest-price').textContent = formatPrice(productData.lowestPrice);
-                document.getElementById('p-original-price').textContent = formatPrice(productData.originalPrice);
-                
-                // Sort Prices
-                if (productData.prices && productData.prices.length > 0) {
-                    productData.prices.sort((a,b) => a.price - b.price);
-                    const best = productData.prices[0];
-                    document.getElementById('p-cheapest-logo').src = best.logo;
-                    document.getElementById('p-buy-btn').href = best.url;
-
-                    const otherStoresHTML = productData.prices.slice(1).map(p => `
-                        <div class="flex items-center justify-between p-4 hover:bg-gray-50">
-                            <img src="${p.logo}" class="store-logo">
-                            <span class="font-bold text-gray-800 text-lg">${formatPrice(p.price)}</span>
-                            <a href="${p.url}" target="_blank" class="text-sm font-bold text-msp-blue border border-msp-blue px-4 py-1.5 rounded hover:bg-msp-blue hover:text-white transition-colors">Go to Store</a>
-                        </div>
-                    `).join('');
-                    document.getElementById('other-stores').innerHTML = otherStoresHTML;
-                }
-
-                // Specs
-                if (productData.specs) {
-                    document.getElementById('p-specs').innerHTML = Object.entries(productData.specs).map(([key, val]) => `
-                        <tr>
-                            <td class="w-1/3 text-gray-500 bg-gray-50 font-medium">${key}</td>
-                            <td class="w-2/3 text-gray-900">${val}</td>
-                        </tr>
-                    `).join('');
-                }
-
-                // Chart
-                if (productData.history) {
-                    const ctx = document.getElementById('priceChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: productData.history.map(h => h.date.substring(5)),
-                            datasets: [{ label: 'Price (₹)', data: productData.history.map(h => h.price), borderColor: '#0f4094', backgroundColor: 'rgba(15, 64, 148, 0.1)', fill: true, tension: 0.1 }]
-                        }
-                    });
-                }
-
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('content').classList.remove('hidden');
-            } catch (err) {
-                document.getElementById('loading').innerHTML = '<span class="text-red-500 font-bold">Failed to load product. Backend might be off or product does not exist.</span>';
+            if (error || !p) {
+                errorState.classList.remove('hidden');
+                errorState.classList.add('flex');
+                return;
             }
 
-            // Price Alert
-            document.getElementById('alert-btn').addEventListener('click', async () => {
-                const session = typeof checkSession === 'function' ? await checkSession() : null;
-                if(!session) {
-                    alert("Please log in to set an alert.");
-                    window.location.href = 'login.html';
-                    return;
-                }
-                const tp = prompt(`Set target price for ${productData.title}:\nEnter below ${productData.lowestPrice}:`);
-                if(tp && parseInt(tp) < productData.lowestPrice) {
-                    try {
-                        const r = await fetch('/api/wishlist', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ user_id: session.user.id, product_id: productData.id, target_price: parseInt(tp) })
-                        });
-                        if(r.ok) alert("Price Alert Set!");
-                    } catch(e) { alert("Failed to set alert."); }
-                } else {
-                    alert("Invalid target price.");
-                }
-            });
+            currentProduct = p;
+            addRecentlyViewed(p.id);
+
+            document.title = `${p.title} | PriceMint`;
+            document.getElementById('bc-title').textContent = p.title;
+            document.getElementById('bc-category').textContent = p.category || 'Products';
+            document.getElementById('bc-category').href = `search.html?category=${encodeURIComponent(p.category || '')}`;
+            document.getElementById('p-brand').textContent = p.brand || '';
+            document.getElementById('p-title').textContent = p.title;
+            document.getElementById('p-image').src = p.thumbnail || '';
+            document.getElementById('p-image').alt = p.title;
+            document.getElementById('p-stars').textContent = starString(p.rating);
+            document.getElementById('p-rating').textContent = (p.rating || 0).toFixed(1);
+            document.getElementById('p-review-count').textContent = (p.review_count || 0).toLocaleString('en-IN');
+            document.getElementById('p-lowest-price').textContent = formatPrice(p.lowest_price);
+            document.getElementById('p-cheapest-platform').textContent = p.cheapest_platform || 'a store';
+
+            if (p.original_price > p.lowest_price) {
+                document.getElementById('p-original-price').textContent = formatPrice(p.original_price);
+            }
+            if (p.discount > 0) {
+                const badge = document.getElementById('p-discount-badge');
+                badge.textContent = `${p.discount}% off`;
+                badge.classList.remove('hidden');
+            }
+            document.getElementById('p-buy-btn').href = p.cheapest_url || '#';
+
+            refreshWishlistIcon();
+
+            // Other stores
+            const prices = Array.isArray(p.prices) ? [...p.prices].sort((a, b) => a.price - b.price) : [];
+            const others = prices.slice(1);
+            document.getElementById('other-stores').innerHTML = others.map(store => `
+                <div class="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors">
+                    <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${store.color || '#999'}"></span>
+                    <span class="text-sm font-medium text-gray-700 flex-1 ml-3">${escapeHtml(store.platform)}</span>
+                    <span class="font-bold text-gray-900 mx-3">${formatPrice(store.price)}</span>
+                    <a href="${store.url || '#'}" target="_blank" rel="noopener noreferrer sponsored" class="text-xs font-bold text-charcoal border border-gray-200 px-4 py-1.5 rounded-lg hover:bg-charcoal hover:text-white transition-colors">Visit</a>
+                </div>
+            `).join('');
+
+            // Specs
+            const specs = p.specs || {};
+            const specEntries = Object.entries(specs);
+            if (specEntries.length) {
+                document.getElementById('p-specs').innerHTML = specEntries.map(([key, val]) => `
+                    <tr class="border-b border-gray-50 last:border-0">
+                        <td class="w-1/3 text-gray-500 bg-gray-50/60 font-medium px-5 py-3">${escapeHtml(key)}</td>
+                        <td class="w-2/3 text-gray-900 px-5 py-3">${escapeHtml(val)}</td>
+                    </tr>
+                `).join('');
+            } else {
+                document.getElementById('p-specs').closest('div.bg-white').classList.add('hidden');
+            }
+
+            // AI summary
+            if (p.ai_summary && (p.ai_summary.pros || p.ai_summary.cons)) {
+                document.getElementById('ai-summary-section').classList.remove('hidden');
+                document.getElementById('p-recommendation').textContent = p.ai_summary.recommendation || '';
+                document.getElementById('p-pros').innerHTML = (p.ai_summary.pros || []).map(x => `<li class="flex gap-2"><span class="text-savings">✓</span>${escapeHtml(x)}</li>`).join('');
+                document.getElementById('p-cons').innerHTML = (p.ai_summary.cons || []).map(x => `<li class="flex gap-2"><span class="text-warning">✕</span>${escapeHtml(x)}</li>`).join('');
+            }
+
+            // Price history chart
+            const history = Array.isArray(p.history) && p.history.length ? p.history : [];
+            if (history.length) {
+                const ctx = document.getElementById('priceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: history.map(h => h.date.substring(5)),
+                        datasets: [{
+                            label: 'Price (₹)', data: history.map(h => h.price),
+                            borderColor: '#1DB954', backgroundColor: 'rgba(29, 185, 84, 0.08)',
+                            fill: true, tension: 0.25, pointRadius: 0,
+                        }]
+                    },
+                    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: (v) => '₹' + v.toLocaleString('en-IN') } } } }
+                });
+            } else {
+                document.getElementById('priceChart').closest('div.bg-white').classList.add('hidden');
+            }
+
+            content.classList.remove('hidden');
+        }
+
+        document.getElementById('alert-btn').addEventListener('click', async () => {
+            if (!currentProduct) return;
+            const session = await checkSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const tp = prompt(`Set a target price for ${currentProduct.title}:\nAlert me when it drops below (current: ${formatPrice(currentProduct.lowest_price)}):`);
+            if (!tp || isNaN(parseInt(tp, 10))) return;
+            const target = parseInt(tp, 10);
+            if (target <= 0 || target >= currentProduct.lowest_price) {
+                alert('Enter a target price lower than the current best price.');
+                return;
+            }
+            const { error } = await setPriceAlert(currentProduct.id, target);
+            alert(error ? `Failed to set alert: ${error.message}` : 'Price alert set! Check "Price Alerts" from the menu.');
         });
+
+        loadProduct();
     </script>
 </body>
 </html>

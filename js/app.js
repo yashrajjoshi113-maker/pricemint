@@ -4,7 +4,21 @@
 // enhancements for the home page.
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+// Wait for both the DOM *and* the live product data from Supabase
+// (see js/data.js) before running any rendering logic below.
+function pmBootstrap(callback) {
+    const domReady = new Promise((resolve) => {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', resolve, { once: true });
+        } else {
+            resolve();
+        }
+    });
+    const dataReady = (window.PriceMint && window.PriceMint.ready) || Promise.resolve();
+    Promise.all([domReady, dataReady]).then(callback);
+}
+
+pmBootstrap(() => {
     // Make formatPrice globally available if not already defined
     window.formatPrice = window.formatPrice || ((price) => '₹' + price.toLocaleString('en-IN'));
 
